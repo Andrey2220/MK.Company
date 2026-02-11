@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MK.COMPANY — Контакты</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html">MK.COMPANY</a>
+      <button class="burger" id="burger-menu" aria-label="Меню">☰</button>
+      <nav class="nav-menu" id="nav-menu">
+        <ul class="nav">
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="services.html">Услуги</a></li>
+          <li><a href="team.html">Наша команда</a></li>
+          <li><a href="contact.html">Контакты</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="section-label">CONTACT US</div>
+    <h1>Контакты</h1>
+    <p class="lead">Оставьте заявку — мы свяжемся с вами в ближайшее время.</p>
+
+    <form id="contact-form" class="contact-form" method="post" action="#">
+      <label>Имя
+        <input type="text" name="name" required>
+      </label>
+
+      <label>Email
+        <input type="email" name="email" required>
+      </label>
+
+      <label>Телефон
+        <input type="tel" name="phone">
+      </label>
+
+      <label>Категория
+        <select name="category">
+          <option>Ремонт</option>
+          <option>Строительство</option>
+          <option>Электрика</option>
+          <option>Сантехника</option>
+          <option>Фасад</option>
+          <option>Уборка после ремонта</option>
+          <option>Другое</option>
+        </select>
+      </label>
+
+      <label>Бюджет
+        <select name="budget">
+          <option value="">Не указан</option>
+          <option value="до 1000">До 1 000 €</option>
+          <option value="1000-3000">1 000 – 3 000 €</option>
+          <option value="3000-8000">3 000 – 8 000 €</option>
+          <option value="8000-15000">8 000 – 15 000 €</option>
+          <option value="15000-20000">15 000 – 20 000 €</option>
+        </select>
+      </label>
+
+      <label>Сообщение
+        <textarea name="message" rows="5"></textarea>
+      </label>
+
+      <button type="submit" class="btn btn-accent">Отправить заявку</button>
+    </form>
+
+    <div id="form-success" class="form-success" hidden>Спасибо! Ваша заявка успешно отправлена.</div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="contacts">Телефон: +7 (000) 000-00-00 &nbsp;|&nbsp; Email: info@mk.company</div>
+      <div class="copyright">© MK.COMPANY, 2026</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
