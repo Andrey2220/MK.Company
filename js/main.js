@@ -1,5 +1,5 @@
 // Language switching
-let currentLanguage = localStorage.getItem('language') || 'en';
+let currentLanguage = localStorage.getItem('language') || 'es';
 
 function loadTranslations() {
   // Update all elements with data-i18n attribute
@@ -60,8 +60,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load translations on page load
   loadTranslations();
   
-  // Language dropdown functionality
+  // Set initial language button text
   const langTrigger = document.getElementById('lang-trigger');
+  if (langTrigger) {
+    langTrigger.textContent = (currentLanguage === 'en' ? 'EN' : 'ES') + ' \u25bc';
+  }
+  
+  // Mark current language as active
+  document.querySelectorAll('.lang-option').forEach(btn => {
+    btn.classList.remove('active');
+    if (btn.getAttribute('data-lang') === currentLanguage) {
+      btn.classList.add('active');
+    }
+  });
+  
+  // Language dropdown functionality
   const langMenu = document.getElementById('lang-menu');
   
   if (langTrigger && langMenu) {
@@ -143,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       try {
-        const res = await fetch('http://localhost:3000/api/contact', {
+        const res = await fetch('/api/contact', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
@@ -160,52 +173,82 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 5000);
           }
         } else {
-          alert((json && json.error) ? json.error : 'Ошибка отправки. Попробуйте позже.');
+          alert((json && json.error) ? json.error : 'Error al enviar. Intenta más tarde.');
         }
       } catch (err) {
         console.error('Form error:', err);
-        alert('Не удалось отправить форму. Проверьте соединение с сервером.');
+        alert('No se pudo enviar el formulario. Verifica tu conexión con el servidor.');
       }
     });
   }
 
   // Review Modal Handler
   // Load and render reviews gallery
+  let reviewsData = [];
+  let displayedCount = 0;
+  const REVIEWS_PER_PAGE = 3;
+
   async function loadReviews() {
     const grid = document.getElementById('testimonials-grid');
     if (!grid) return;
-    grid.innerHTML = '<div class="testimonial-loading">Загрузка отзывов...</div>';
+    grid.innerHTML = '<div class="testimonial-loading">Cargando reseñas...</div>';
+    displayedCount = 0;
     try {
-      const res = await fetch('http://localhost:3000/api/reviews');
+      const res = await fetch('/api/reviews');
       const json = await res.json();
       if (!res.ok || !json.ok) throw new Error(json && json.error ? json.error : 'Failed to load');
 
-      const reviews = (json.reviews || []).sort((a,b)=> (new Date(b.date)) - (new Date(a.date)));
-      if (reviews.length === 0) {
-        grid.innerHTML = '<div class="no-reviews">Пока нет отзывов.</div>';
+      reviewsData = (json.reviews || []).sort((a,b)=> (new Date(b.date)) - (new Date(a.date)));
+      if (reviewsData.length === 0) {
+        grid.innerHTML = `
+          <div class="no-reviews">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">⭐</div>
+            <h3>Sin reseñas aún</h3>
+            <p>¡Sé el primero en dejar una reseña sobre nuestro trabajo!</p>
+          </div>
+        `;
         return;
       }
 
       grid.innerHTML = '';
-      reviews.forEach(r => {
-        const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
-        const card = document.createElement('div');
-        card.className = 'testimonial-card';
-        card.innerHTML = `
-          <div class="stars">${stars}</div>
-          <p>${escapeHtml(r.text)}</p>
-          <div class="testimonial-author">
-            <img src="https://i.pravatar.cc/50?u=${encodeURIComponent(r.email)}" alt="${escapeHtml(r.name)}">
-            <div>
-              <strong>${escapeHtml(r.name)}</strong>
-              <small>${new Date(r.date).toLocaleDateString()}</small>
-            </div>
-          </div>`;
-        grid.appendChild(card);
-      });
+      renderMoreReviews();
     } catch (err) {
       console.error('Load reviews error:', err);
-      grid.innerHTML = '<div class="no-reviews">Ошибка загрузки отзывов.</div>';
+      grid.innerHTML = '<div class="no-reviews">Error al cargar las reseñas.</div>';
+    }
+  }
+
+  function renderMoreReviews() {
+    const grid = document.getElementById('testimonials-grid');
+    const endIdx = Math.min(displayedCount + REVIEWS_PER_PAGE, reviewsData.length);
+    for (let i = displayedCount; i < endIdx; i++) {
+      const r = reviewsData[i];
+      const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+      const card = document.createElement('div');
+      card.className = 'testimonial-card';
+      card.innerHTML = `
+        <div class="stars">${stars}</div>
+        <p>${escapeHtml(r.text)}</p>
+        <div class="testimonial-author">
+          <img src="https://i.pravatar.cc/50?u=${encodeURIComponent(r.email)}" alt="${escapeHtml(r.name)}">
+          <div>
+            <strong>${escapeHtml(r.name)}</strong>
+            <small>${new Date(r.date).toLocaleDateString()}</small>
+          </div>
+        </div>`;
+      grid.appendChild(card);
+    }
+    displayedCount = endIdx;
+
+    // Add "Load More" button if there are more reviews
+    const container = document.getElementById('load-more-container');
+    container.innerHTML = '';
+    if (endIdx < reviewsData.length) {
+      const btn = document.createElement('button');
+      btn.className = 'load-more-btn';
+      btn.textContent = 'Ещё отзывы';
+      btn.addEventListener('click', renderMoreReviews);
+      container.appendChild(btn);
     }
   }
 
@@ -297,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       try {
-        const res = await fetch('http://localhost:3000/api/reviews', {
+        const res = await fetch('/api/reviews', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)

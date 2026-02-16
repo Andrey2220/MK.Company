@@ -10,6 +10,7 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, '..')));
 
 const reviewsFile = path.join(__dirname, 'reviews.json');
 
@@ -30,11 +31,11 @@ const transporter = nodemailer.createTransport({
 
 app.post('/api/contact', async (req, res) => {
   const { name, email, phone, category, budget, message } = req.body || {};
-  if (!name || !email) return res.status(400).json({ ok: false, error: 'Имя и email обязательны' });
+  if (!name || !email) return res.status(400).json({ ok: false, error: 'El nombre y correo electrónico son obligatorios' });
 
   const to = process.env.TO_EMAIL || process.env.SMTP_USER;
-  const subject = `Заявка с сайта MK.COMPANY — ${category || 'Без категории'}`;
-  const text = `Имя: ${name}\nEmail: ${email}\nТелефон: ${phone || ''}\nКатегория: ${category || ''}\nБюджет: ${budget || 'не указан'}\n\nСообщение:\n${message || ''}`;
+  const subject = `Solicitud del sitio web MK.COMPANY — ${category || 'Sin categoría'}`;
+  const text = `Nombre: ${name}\nCorreo: ${email}\nTeléfono: ${phone || ''}\nCategoría: ${category || ''}\nPresupuesto: ${budget || 'no especificado'}\n\nMensaje:\n${message || ''}`;
 
   try {
     await transporter.sendMail({
@@ -46,23 +47,32 @@ app.post('/api/contact', async (req, res) => {
     res.json({ ok: true });
   } catch (err) {
     console.error('Mail error:', err && err.message ? err.message : err);
-    res.status(500).json({ ok: false, error: 'Ошибка отправки письма' });
+    res.status(500).json({ ok: false, error: 'Error al enviar el correo' });
   }
 });
 
 app.post('/api/reviews', async (req, res) => {
   const { name, email, rating, text } = req.body || {};
   if (!name || !email || !rating || !text) {
-    return res.status(400).json({ ok: false, error: 'Все поля обязательны' });
+    return res.status(400).json({ ok: false, error: 'Todos los campos son obligatorios' });
   }
 
   const to = process.env.TO_EMAIL || process.env.SMTP_USER;
-  const subject = `Новый отзыв на сайте MK.COMPANY — ${rating}★`;
-  const mailText = `Новый отзыв:\n\nИмя: ${name}\nEmail: ${email}\nРейтинг: ${rating}/5\n\nТекст отзыва:\n${text}`;
+  const subject = `Nueva reseña en el sitio web MK.COMPANY — ${rating}★`;
+  const mailText = `Nueva reseña:\n\nNombre: ${name}\nCorreo: ${email}\nCalificación: ${rating}/5\n\nTexto de la reseña:\n${text}`;
 
   try {
     // Save review to JSON file
-    const reviews = JSON.parse(fs.readFileSync(reviewsFile, 'utf8'));
+    let reviews = [];
+    try {
+      const data = fs.readFileSync(reviewsFile, 'utf8');
+      reviews = JSON.parse(data.replace(/^\uFEFF/, '')); // Remove BOM if present
+    } catch (parseErr) {
+      console.log('Reviews file corrupted or empty, reinitializing...');
+      reviews = [];
+      fs.writeFileSync(reviewsFile, JSON.stringify(reviews));
+    }
+    
     const newReview = {
       id: Date.now(),
       name,
@@ -85,13 +95,21 @@ app.post('/api/reviews', async (req, res) => {
     res.json({ ok: true });
   } catch (err) {
     console.error('Review error:', err && err.message ? err.message : err);
-    res.status(500).json({ ok: false, error: 'Ошибка отправки отзыва' });
+    res.status(500).json({ ok: false, error: 'Error al enviar la reseña' });
   }
 });
 
 app.get('/api/reviews', (req, res) => {
   try {
-    const reviews = JSON.parse(fs.readFileSync(reviewsFile, 'utf8'));
+    let reviews = [];
+    try {
+      const data = fs.readFileSync(reviewsFile, 'utf8');
+      reviews = JSON.parse(data.replace(/^\uFEFF/, '')); // Remove BOM if present
+    } catch (parseErr) {
+      console.log('Reviews file corrupted, reinitializing...');
+      reviews = [];
+      fs.writeFileSync(reviewsFile, JSON.stringify(reviews));
+    }
     res.json({ ok: true, reviews });
   } catch (err) {
     console.error('Error reading reviews:', err);
