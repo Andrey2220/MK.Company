@@ -137,45 +137,54 @@
     <section class="testimonials container">
       <div class="section-label" data-i18n="testimonials_label">TESTIMONIALS</div>
       <h2 data-i18n="testimonials_title">What our clients say</h2>
+      <p style="text-align: center; margin-bottom: 2rem;"><button id="leave-review-btn" class="btn btn-accent" data-i18n="leave_review_btn">Leave a Review</button></p>
 
-      <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p>"They took our vague ideas and transformed them into a home that feels intentional, calming, and beautifully functional. Every detail was considered with care."</p>
-          <div class="testimonial-author">
-            <img src="https://i.pravatar.cc/50?img=1" alt="Elena">
-            <div>
-              <strong>Elena Marwood</strong>
-              <small>Homeowner</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p>"The studio's approach is incredibly professional. They listened, understood our needs, and delivered a design that exceeded every expectation."</p>
-          <div class="testimonial-author">
-            <img src="https://i.pravatar.cc/50?img=2" alt="Daniel">
-            <div>
-              <strong>Daniel Price</strong>
-              <small>Founder</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p>"Our office redesign has completely changed the way our team works. The space feels brighter, more efficient, and genuinely inspiring."</p>
-          <div class="testimonial-author">
-            <img src="https://i.pravatar.cc/50?img=3" alt="Olivia">
-            <div>
-              <strong>Olivia Bennett</strong>
-              <small>Manager</small>
-            </div>
-          </div>
-        </div>
+      <div id="testimonials-grid" class="testimonials-grid">
+        <!-- Reviews will be loaded here dynamically -->
+        <div class="testimonial-loading">Загрузка отзывов...</div>
       </div>
     </section>
+
+    <!-- Review Modal -->
+    <div id="review-modal" class="modal">
+      <div class="modal-content">
+        <span class="modal-close" id="modal-close">&times;</span>
+        <h3 data-i18n="review_modal_title">Leave a Review</h3>
+        <form id="review-form" class="review-form">
+          <div class="rating-section">
+            <label>
+              <span data-i18n="review_form_rating">Rating</span>
+              <div class="star-rating">
+                <button type="button" class="star" data-value="1">★</button>
+                <button type="button" class="star" data-value="2">★</button>
+                <button type="button" class="star" data-value="3">★</button>
+                <button type="button" class="star" data-value="4">★</button>
+                <button type="button" class="star" data-value="5">★</button>
+              </div>
+              <input type="hidden" name="rating" value="5" required>
+            </label>
+          </div>
+
+          <label>
+            <span data-i18n="review_form_name">Your Name</span>
+            <input type="text" name="name" required>
+          </label>
+
+          <label>
+            <span data-i18n="review_form_email">Email</span>
+            <input type="email" name="email" required>
+          </label>
+
+          <label>
+            <span data-i18n="review_form_text">Your Review</span>
+            <textarea name="text" rows="5" required></textarea>
+          </label>
+
+          <button type="submit" class="btn btn-accent" data-i18n="review_form_submit">Submit Review</button>
+        </form>
+        <div id="review-success" class="review-success" hidden data-i18n="review_success">Thank you for your review!</div>
+      </div>
+    </div>
 
   <footer class="site-footer">
     <div class="container footer-inner">

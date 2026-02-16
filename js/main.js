@@ -168,4 +168,166 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // Review Modal Handler
+  // Load and render reviews gallery
+  async function loadReviews() {
+    const grid = document.getElementById('testimonials-grid');
+    if (!grid) return;
+    grid.innerHTML = '<div class="testimonial-loading">Загрузка отзывов...</div>';
+    try {
+      const res = await fetch('http://localhost:3000/api/reviews');
+      const json = await res.json();
+      if (!res.ok || !json.ok) throw new Error(json && json.error ? json.error : 'Failed to load');
+
+      const reviews = (json.reviews || []).sort((a,b)=> (new Date(b.date)) - (new Date(a.date)));
+      if (reviews.length === 0) {
+        grid.innerHTML = '<div class="no-reviews">Пока нет отзывов.</div>';
+        return;
+      }
+
+      grid.innerHTML = '';
+      reviews.forEach(r => {
+        const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+        const card = document.createElement('div');
+        card.className = 'testimonial-card';
+        card.innerHTML = `
+          <div class="stars">${stars}</div>
+          <p>${escapeHtml(r.text)}</p>
+          <div class="testimonial-author">
+            <img src="https://i.pravatar.cc/50?u=${encodeURIComponent(r.email)}" alt="${escapeHtml(r.name)}">
+            <div>
+              <strong>${escapeHtml(r.name)}</strong>
+              <small>${new Date(r.date).toLocaleDateString()}</small>
+            </div>
+          </div>`;
+        grid.appendChild(card);
+      });
+    } catch (err) {
+      console.error('Load reviews error:', err);
+      grid.innerHTML = '<div class="no-reviews">Ошибка загрузки отзывов.</div>';
+    }
+  }
+
+  function escapeHtml(text) {
+    if (!text) return '';
+    return text.replace(/[&<>"']/g, function(ch) {
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]);
+    });
+  }
+  const modal = document.getElementById('review-modal');
+  const reviewBtn = document.getElementById('leave-review-btn');
+  const modalClose = document.getElementById('modal-close');
+  const reviewForm = document.getElementById('review-form');
+  const stars = document.querySelectorAll('.star');
+  const ratingInput = document.querySelector('input[name="rating"]');
+  const reviewSuccess = document.getElementById('review-success');
+
+  if (reviewBtn) {
+    reviewBtn.addEventListener('click', () => {
+      modal.classList.add('active');
+    });
+  }
+
+  if (modalClose) {
+    modalClose.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+  }
+
+  // Close modal when clicking outside
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('active');
+    }
+  });
+
+  // Star Rating Handler
+  stars.forEach(star => {
+    star.addEventListener('click', (e) => {
+      e.preventDefault();
+      const value = parseInt(star.getAttribute('data-value'));
+      ratingInput.value = value;
+
+      stars.forEach(s => {
+        const sValue = parseInt(s.getAttribute('data-value'));
+        if (sValue <= value) {
+          s.classList.add('active');
+          s.classList.remove('hover');
+        } else {
+          s.classList.remove('active');
+        }
+      });
+    });
+
+    star.addEventListener('mouseenter', () => {
+      const value = parseInt(star.getAttribute('data-value'));
+      stars.forEach(s => {
+        const sValue = parseInt(s.getAttribute('data-value'));
+        if (sValue <= value) {
+          s.classList.add('hover');
+        } else {
+          s.classList.remove('hover');
+        }
+      });
+    });
+  });
+
+  const starsContainer = document.querySelector('.star-rating');
+  if (starsContainer) {
+    starsContainer.addEventListener('mouseleave', () => {
+      stars.forEach(s => {
+        if (!s.classList.contains('active')) {
+          s.classList.remove('hover');
+        }
+      });
+    });
+  }
+
+  // Review Form Submission
+  if (reviewForm) {
+    reviewForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const data = {
+        name: reviewForm.elements['name'].value,
+        email: reviewForm.elements['email'].value,
+        rating: parseInt(reviewForm.elements['rating'].value),
+        text: reviewForm.elements['text'].value
+      };
+
+      try {
+        const res = await fetch('http://localhost:3000/api/reviews', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const json = await res.json();
+
+        if (res.ok && json.ok) {
+          reviewForm.reset();
+          stars.forEach(s => s.classList.remove('active'));
+          ratingInput.value = 5;
+
+          if (reviewSuccess) {
+            reviewSuccess.hidden = false;
+            // reload gallery and close modal shortly after
+            loadReviews();
+            setTimeout(() => {
+              modal.classList.remove('active');
+              reviewSuccess.hidden = true;
+            }, 1200);
+          }
+        } else {
+          alert((json && json.error) ? json.error : 'Error submitting review. Please try again.');
+        }
+      } catch (err) {
+        console.error('Review error:', err);
+        alert('Failed to submit review. Please check your connection.');
+      }
+    });
+  }
+  // initial load of reviews
+  loadReviews();
 });

@@ -86,6 +86,7 @@ const translations = {
     
     testimonials_label: 'TESTIMONIALS',
     testimonials_title: 'What our clients say',
+    leave_review_btn: 'Leave a Review',
     
     team_label: 'OUR TEAM',
     team_title: 'Our Team',
@@ -126,6 +127,15 @@ const translations = {
     budget_5: '15,000 – 20,000 €',
     
     form_success: 'Thank you! Your request has been sent successfully.',
+    
+    review_modal_title: 'Leave a Review',
+    review_form_name: 'Your Name',
+    review_form_email: 'Email',
+    review_form_text: 'Your Review',
+    review_form_rating: 'Rating',
+    review_form_submit: 'Submit Review',
+    review_form_close: 'Close',
+    review_success: 'Thank you for your review!',
     
     footer_phone: 'Phone: +7 (000) 000-00-00 &nbsp;|&nbsp; Email: info@mk.company',
     footer_copyright: '© MK.COMPANY, 2026',
@@ -223,6 +233,7 @@ const translations = {
     
     testimonials_label: 'TESTIMONIOS',
     testimonials_title: 'Lo que dicen nuestros clientes',
+    leave_review_btn: 'Dejar una reseña',
     
     team_label: 'NUESTRO EQUIPO',
     team_title: 'Nuestro Equipo',
@@ -263,6 +274,15 @@ const translations = {
     budget_5: '15.000 – 20.000 €',
     
     form_success: 'Gracias! Su solicitud ha sido enviada correctamente.',
+    
+    review_modal_title: 'Dejar una reseña',
+    review_form_name: 'Su Nombre',
+    review_form_email: 'Correo Electrónico',
+    review_form_text: 'Su Reseña',
+    review_form_rating: 'Calificación',
+    review_form_submit: 'Enviar Reseña',
+    review_form_close: 'Cerrar',
+    review_success: 'Gracias por su reseña!',
     
     footer_phone: 'Teléfono: +7 (000) 000-00-00 &nbsp;|&nbsp; Email: info@mk.company',
     footer_copyright: '© MK.COMPANY, 2026',
