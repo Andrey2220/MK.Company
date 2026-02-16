@@ -12,7 +12,7 @@
 <body>
   <header class="site-header">
     <div class="container nav-wrap">
-      <a class="brand" href="index.html"><img src="img/logotype.png" alt="MK.COMPANY" class="logo"></a>
+      <a class="brand" href="index.html"><img src="img/logotype.svg" alt="MK.COMPANY" class="logo"></a>
       <button class="burger" id="burger-menu" aria-label="Menú">☰</button>
       <nav class="nav-menu" id="nav-menu">
         <ul class="nav">
@@ -70,14 +70,20 @@
 
       <label>
         <span data-i18n="form_budget">Budget</span>
-        <select name="budget">
+        <select name="budget" id="budget-select">
           <option value="" data-i18n="budget_empty">Not specified</option>
           <option value="up-1000" data-i18n="budget_1">Up to 1,000 €</option>
           <option value="1000-3000" data-i18n="budget_2">1,000 – 3,000 €</option>
           <option value="3000-8000" data-i18n="budget_3">3,000 – 8,000 €</option>
           <option value="8000-15000" data-i18n="budget_4">8,000 – 15,000 €</option>
           <option value="15000-20000" data-i18n="budget_5">15,000 – 20,000 €</option>
+          <option value="custom" data-i18n="budget_custom">Other amount</option>
         </select>
+      </label>
+
+      <label id="custom-budget-label" style="display: none;">
+        <span data-i18n="form_custom_budget">Enter amount (€)</span>
+        <input type="number" name="custom_budget" placeholder="e.g. 5000" min="0">
       </label>
 
       <label>

@@ -125,6 +125,8 @@ const translations = {
     budget_3: '3,000 – 8,000 €',
     budget_4: '8,000 – 15,000 €',
     budget_5: '15,000 – 20,000 €',
+    budget_custom: 'Other amount',
+    form_custom_budget: 'Enter amount (€)',
     
     form_success: 'Thank you! Your request has been sent successfully.',
     
@@ -144,6 +146,13 @@ const translations = {
     page_title_services: 'MK.COMPANY — Services',
     page_title_team: 'MK.COMPANY — Our Team',
     page_title_contact: 'MK.COMPANY — Contact Us',
+    page_title_gallery: 'MK.COMPANY — Gallery',
+    
+    view_gallery: 'View Our Work',
+    gallery_label: 'OUR PROJECTS',
+    gallery_title: 'Gallery of Our Work',
+    gallery_subtitle: 'Examples of successfully completed projects. Each work is performed with the highest quality and attention to detail.',
+    gallery_cta: 'Order Work',
   },
   
   es: {
@@ -272,6 +281,8 @@ const translations = {
     budget_3: '3.000 – 8.000 €',
     budget_4: '8.000 – 15.000 €',
     budget_5: '15.000 – 20.000 €',
+    budget_custom: 'Otra cantidad',
+    form_custom_budget: 'Ingrese la cantidad (€)',
     
     form_success: 'Gracias! Su solicitud ha sido enviada correctamente.',
     
@@ -291,5 +302,12 @@ const translations = {
     page_title_services: 'MK.COMPANY — Servicios',
     page_title_team: 'MK.COMPANY — Nuestro Equipo',
     page_title_contact: 'MK.COMPANY — Contactos',
+    page_title_gallery: 'MK.COMPANY — Galería',
+    
+    view_gallery: 'Ver Nuestras Obras',
+    gallery_label: 'NUESTROS PROYECTOS',
+    gallery_title: 'Galería de Nuestros Trabajos',
+    gallery_subtitle: 'Ejemplos de proyectos completados con éxito. Cada trabajo se realiza con la más alta calidad y atención a los detalles.',
+    gallery_cta: 'Ordenar Trabajo',
   }
 };

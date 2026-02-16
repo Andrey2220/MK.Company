@@ -143,15 +143,36 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     
+    // Handle custom budget input
+    const budgetSelect = document.getElementById('budget-select');
+    const customBudgetLabel = document.getElementById('custom-budget-label');
+    
+    if (budgetSelect && customBudgetLabel) {
+      budgetSelect.addEventListener('change', (e) => {
+        if (e.target.value === 'custom') {
+          customBudgetLabel.style.display = 'block';
+        } else {
+          customBudgetLabel.style.display = 'none';
+          document.querySelector('input[name="custom_budget"]').value = '';
+        }
+      });
+    }
+    
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      let budget = form.elements['budget'] ? form.elements['budget'].value : '';
+      if (budget === 'custom') {
+        const customBudgetValue = document.querySelector('input[name="custom_budget"]').value;
+        budget = customBudgetValue ? `€${customBudgetValue}` : 'Custom amount';
+      }
 
       const data = {
         name: form.elements['name'].value,
         email: form.elements['email'].value,
         phone: form.elements['phone'].value || '',
         category: form.elements['category'] ? form.elements['category'].value : '',
-        budget: form.elements['budget'] ? form.elements['budget'].value : '',
+        budget: budget,
         message: form.elements['message'].value || ''
       };
 

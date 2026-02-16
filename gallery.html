@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n="page_title_gallery">MK.COMPANY — Galería</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="Галерея работ MK.COMPANY — примеры наших проектов">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html"><img src="img/logotype.svg" alt="MK.COMPANY" class="logo"></a>
+      <button class="burger" id="burger-menu" aria-label="Menú">☰</button>
+      <nav class="nav-menu" id="nav-menu">
+        <ul class="nav">
+          <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+          <li><a href="services.html" data-i18n="nav_services">Services</a></li>
+          <li><a href="team.html" data-i18n="nav_team">Our Team</a></li>
+          <li><a href="contact.html" data-i18n="nav_contact">Contacts</a></li>
+          <li class="nav-lang">
+            <div class="lang-dropdown">
+              <button class="lang-trigger" id="lang-trigger">EN ▼</button>
+              <div class="lang-menu" id="lang-menu">
+                <button class="lang-option" data-lang="en">English</button>
+                <button class="lang-option" data-lang="es">Español</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="gallery-section">
+      <div class="section-label" data-i18n="gallery_label">OUR PROJECTS</div>
+      <h1 data-i18n="gallery_title">Галерея наших работ</h1>
+      <p class="lead" data-i18n="gallery_subtitle">Примеры успешно завершённых проектов нашей компании. Каждая работа выполнена с высочайшим качеством и вниманием к деталям.</p>
+
+      <div class="gallery-grid" id="gallery-grid">
+        <div class="gallery-item">
+          <img src="img/ремонты.jpeg" alt="Reparación de apartamentos" class="gallery-image">
+          <div class="gallery-info">
+            <h3>Reparación capitular de apartamentos</h3>
+            <p>Reparación integral desde cero</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="img/стройка.jfif" alt="Construcción de casas" class="gallery-image">
+          <div class="gallery-info">
+            <h3>Construcción de cabaña</h3>
+            <p>Construcción de casas según proyecto individual</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="img/Электрик.jfif" alt="Instalación eléctrica" class="gallery-image">
+          <div class="gallery-info">
+            <h3>Trabajos de instalación eléctrica</h3>
+            <p>Instalación y modernización del cableado eléctrico</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="img/сантехник.jfif" alt="Trabajos de fontanería" class="gallery-image">
+          <div class="gallery-info">
+            <h3>Trabajos de fontanería</h3>
+            <p>Instalación y reparación de sistemas de agua</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="img/Фасад.jfif" alt="Trabajos de fachada" class="gallery-image">
+          <div class="gallery-info">
+            <h3>Trabajos de fachada</h3>
+            <p>Revestimiento y restauración de fachadas</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="img/Уборка.jfif" alt="Limpieza después de la reparación" class="gallery-image">
+          <div class="gallery-info">
+            <h3>Limpieza y acabados finales</h3>
+            <p>Limpieza profesional después de la reparación</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 3rem;">
+        <a href="contact.html" class="btn btn-accent" data-i18n="gallery_cta">Заказать работу →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner container">
+      <div>
+        <strong>MK.COMPANY</strong>
+        <p data-i18n="footer_desc">Строительство и ремонт любой сложности</p>
+      </div>
+      <div>
+        <p><strong data-i18n="footer_phone">Телефон:</strong> +7 (999) 000-00-00</p>
+        <p><strong data-i18n="footer_email">Email:</strong> info@mkcompany.com</p>
+      </div>
+      <div>
+        <small data-i18n="footer_copyright">&copy; 2026 MK.COMPANY. All rights reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/translations.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
