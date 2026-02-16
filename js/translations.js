@@ -11,7 +11,10 @@ const translations = {
     
     about_label: 'WHO WE ARE',
     about_title: 'About the Company',
-    about_text: 'MK.COMPANY is a team of experienced craftsmen in the field of construction and repair. We perform work of any complexity with attention to detail.',
+    about_text_1: 'MK.COMPANY is a team of professionals specializing in full-service construction and repair. We realize projects of any complexity — from cosmetic apartment repairs to building houses from scratch.',
+    about_text_2: 'Our approach is based on transparency, responsibility and exact compliance with deadlines. Each project we complete as if we were building for ourselves — with attention to detail, quality materials and respect for the client.',
+    about_text_3: 'We work throughout Valencia and nearby municipalities. We value the trust of our clients and are proud that the majority of new projects come by recommendation.',
+    about_text_4: 'We do not just do repairs — we create a comfortable space for living.',
     
     services_label: 'WHAT WE DO',
     services_title: 'Services We Offer',
@@ -72,17 +75,17 @@ const translations = {
     work_title: 'Smooth Transition from Idea to Reality',
     work_subtitle: 'We follow a clear and collaborative process to ensure that every project moves smoothly — from the first conversation to the final handover.',
     
-    step_1_title: 'Consultation & Briefing',
-    step_1_desc: 'We start by understanding your needs, lifestyle and goals. This helps determine direction, scope and expectations.',
+    step_1_title: 'Consultation & Evaluation',
+    step_1_desc: 'We start with a free consultation: discuss the task, visit the site and evaluate the scope of work. If the client decides to continue working with us, the visit and evaluation are free. If the client refuses further work, only the cost of the specialist visit is paid.',
     
-    step_2_title: 'Concept & Design Development',
-    step_2_desc: 'We transform your description into concepts, spatial layouts and visual ideas — refining them until the design is perfect.',
+    step_2_title: 'Budget & Planning',
+    step_2_desc: 'After inspecting the site, we prepare a transparent budget and detailed work plan. We coordinate all details with the client so that the result fully meets their expectations.',
     
-    step_3_title: 'Technical & Material Detailing',
-    step_3_desc: 'We prepare detailed drawings, select materials and coordinate technical elements to ensure accuracy and practicality.',
+    step_3_title: 'Project Execution',
+    step_3_desc: 'We proceed to the execution of work. Our team of masters performs all stages of construction and renovation while complying with deadlines, quality standards and safety regulations.',
     
-    step_4_title: 'Build & Implementation',
-    step_4_desc: 'We oversee construction, manage contractors and guarantee that every detail is executed according to the design vision.',
+    step_4_title: 'Delivery & Warranty',
+    step_4_desc: 'After project completion, we conduct final inspection, cleaning and handover of the object. We provide warranty on completed work and always remain available for maintenance and consultation.',
     
     testimonials_label: 'TESTIMONIALS',
     testimonials_title: 'What our clients say',
@@ -167,7 +170,10 @@ const translations = {
     
     about_label: 'QUIÉNES SOMOS',
     about_title: 'Acerca de la Empresa',
-    about_text: 'MK.COMPANY es un equipo de maestros experimentados en construcción y reparación. Realizamos trabajos de cualquier complejidad con atención al detalle.',
+    about_text_1: 'MK.COMPANY es un equipo de profesionales especializado en construcción y reparación de llaves en mano. Realizamos proyectos de cualquier complejidad, desde reparaciones cosméticas de apartamentos hasta la construcción de casas desde cero.',
+    about_text_2: 'Nuestro enfoque se basa en la transparencia, la responsabilidad y el cumplimiento exacto de los plazos. Cada proyecto lo realizamos como si fuera para nosotros mismos — con atención a los detalles, materiales de calidad y respeto al cliente.',
+    about_text_3: 'Trabajamos en toda Valencia y municipios cercanos. Valoramos la confianza de nuestros clientes y nos enorgullece que la mayoría de nuevos pedidos lleguen por recomendación.',
+    about_text_4: 'No hacemos simplemente reparaciones — creamos un espacio confortable para vivir.',
     
     services_label: 'QUÉ HACEMOS',
     services_title: 'Servicios que ofrecemos',
@@ -228,17 +234,17 @@ const translations = {
     work_title: 'Transición suave de la idea a la realidad',
     work_subtitle: 'Seguimos un proceso claro y colaborativo para garantizar que cada proyecto se desarrolle sin problemas — desde la primera conversación hasta la entrega final.',
     
-    step_1_title: 'Consulta y Briefing',
-    step_1_desc: 'Comenzamos entendiendo sus necesidades, estilo de vida y objetivos. Esto ayuda a determinar la dirección, el alcance y las expectativas.',
+    step_1_title: 'Consulta y evaluación',
+    step_1_desc: 'Comenzamos con una consulta gratuita: discutimos la tarea, visitamos el objeto y evaluamos el volumen de trabajo. Si el cliente decide continuar trabajando con nosotros, la visita y la evaluación son gratuitas. En caso de negarse a trabajos posteriores, solo se paga el costo de la visita del especialista.',
     
-    step_2_title: 'Desarrollo de Concepto y Diseño',
-    step_2_desc: 'Transformamos su descripción en conceptos, diseños espaciales e ideas visuales — refinándolos hasta que el diseño sea perfecto.',
+    step_2_title: 'Presupuesto y planificación',
+    step_2_desc: 'Después de la inspección del objeto elaboramos un presupuesto transparente y un plan detallado de trabajo. Coordinamos todos los detalles con el cliente para que el resultado corresponda plenamente a sus expectativas.',
     
-    step_3_title: 'Detalles Técnicos y de Materiales',
-    step_3_desc: 'Preparamos planos detallados, seleccionamos materiales y coordinamos elementos técnicos para garantizar precisión y practicidad.',
+    step_3_title: 'Ejecución de la obra',
+    step_3_desc: 'Procedemos a la ejecución de los trabajos. Nuestro equipo de maestros realiza todas las etapas de construcción y reparación cumpliendo los plazos, estándares de calidad y normas de seguridad.',
     
-    step_4_title: 'Construcción e Implementación',
-    step_4_desc: 'Supervisamos la construcción, gestionamos contratistas y garantizamos que cada detalle se ejecute de acuerdo con la visión del diseño.',
+    step_4_title: 'Entrega y garantía',
+    step_4_desc: 'Después de la finalización del proyecto realizamos una inspección final, limpieza y entrega del objeto. Proporcionamos garantía en el trabajo realizado y siempre estamos disponibles para mantenimiento y consultas.',
     
     testimonials_label: 'TESTIMONIOS',
     testimonials_title: 'Lo que dicen nuestros clientes',
