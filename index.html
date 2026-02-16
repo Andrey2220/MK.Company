@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MK.COMPANY — Главная</title>
+  <title data-i18n="page_title_home">MK.COMPANY — Главная</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -17,10 +17,19 @@
       <button class="burger" id="burger-menu" aria-label="Меню">☰</button>
       <nav class="nav-menu" id="nav-menu">
         <ul class="nav">
-          <li><a href="index.html">Главная</a></li>
-          <li><a href="services.html">Услуги</a></li>
-          <li><a href="team.html">Наша команда</a></li>
-          <li><a href="contact.html">Контакты</a></li>
+          <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+          <li><a href="services.html" data-i18n="nav_services">Services</a></li>
+          <li><a href="team.html" data-i18n="nav_team">Our Team</a></li>
+          <li><a href="contact.html" data-i18n="nav_contact">Contacts</a></li>
+          <li class="nav-lang">
+            <div class="lang-dropdown">
+              <button class="lang-trigger" id="lang-trigger">EN ▼</button>
+              <div class="lang-menu" id="lang-menu">
+                <button class="lang-option" data-lang="en">English</button>
+                <button class="lang-option" data-lang="es">Español</button>
+              </div>
+            </div>
+          </li>
         </ul>
       </nav>
     </div>
@@ -29,22 +38,22 @@
   <main>
     <section class="hero">
       <div class="hero-inner container">
-        <h1>Строим и ремонтируем качественно</h1>
-        <p class="lead">Профессиональные услуги для дома и бизнеса — быстро, аккуратно, с гарантией.</p>
-        <p><a class="btn btn-accent" href="contact.html">Оставить заявку</a></p>
+        <h1 data-i18n="hero_title">Строим и ремонтируем качественно</h1>
+        <p class="lead" data-i18n="hero_subtitle">Профессиональные услуги для дома и бизнеса — быстро, аккуратно, с гарантией.</p>
+        <p><a class="btn btn-accent" href="contact.html" data-i18n="hero_btn">Оставить заявку</a></p>
       </div>
     </section>
 
     <section class="about container">
-      <div class="section-label">WHO WE ARE</div>
-      <h2>О компании</h2>
-      <p>MK.COMPANY — команда опытных мастеров в области строительства и ремонта. Мы выполняем работы любой сложности с вниманием к деталям.</p>
+      <div class="section-label" data-i18n="about_label">WHO WE ARE</div>
+      <h2 data-i18n="about_title">О компании</h2>
+      <p data-i18n="about_text">MK.COMPANY — команда опытных мастеров в области строительства и ремонта. Мы выполняем работы любой сложности с вниманием к деталям.</p>
     </section>
 
     <section class="services-preview container">
-      <div class="section-label">WHAT WE DO</div>
-      <h2>Какие услуги мы можем предложить</h2>
-      <p class="lead">Мы предоставляем комплексные строительные услуги, превосходящая идеи клиентов в красиво оформленные и функциональные пространства.</p>
+      <div class="section-label" data-i18n="services_label">WHAT WE DO</div>
+      <h2 data-i18n="services_title">Какие услуги мы можем предложить</h2>
+      <p class="lead" data-i18n="services_subtitle">Мы предоставляем комплексные строительные услуги, превосходящая идеи клиентов в красиво оформленные и функциональные пространства.</p>
 
       <section class="services-full">
         <div class="service-item">
@@ -52,12 +61,12 @@
             <img src="/img/ремонты.jpeg" alt="Ремонт квартиры">
           </div>
           <div class="service-content">
-            <h3>Капитальный ремонт</h3>
-            <p>Комплексные ремонтные работы под ключ — от космического до капитального.</p>
+            <h3 data-i18n="service_repair_title">Капитальный ремонт</h3>
+            <p data-i18n="service_repair_desc">Комплексные ремонтные работы под ключ — от космического до капитального.</p>
             <ul class="service-checklist">
-              <li>Демонтаж старых покрытий</li>
-              <li>Выравнивание стен и потолков</li>
-              <li>Покраска и шпатлевка</li>
+              <li data-i18n="service_repair_1">Демонтаж старых покрытий</li>
+              <li data-i18n="service_repair_2">Выравнивание стен и потолков</li>
+              <li data-i18n="service_repair_3">Покраска и шпатлевка</li>
             </ul>
           </div>
         </div>
@@ -67,12 +76,12 @@
             <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=250&fit=crop" alt="Строительство">
           </div>
           <div class="service-content">
-            <h3>Строительство дома</h3>
-            <p>Возводим дома и коттеджи с нуля по индивидуальным проектам.</p>
+            <h3 data-i18n="service_build_title">Строительство дома</h3>
+            <p data-i18n="service_build_desc">Возводим дома и коттеджи с нуля по индивидуальным проектам.</p>
             <ul class="service-checklist">
-              <li>Земельные работы, фундамент</li>
-              <li>Возведение стен и перекрытий</li>
-              <li>Кровельные и фасадные работы</li>
+              <li data-i18n="service_build_1">Земельные работы, фундамент</li>
+              <li data-i18n="service_build_2">Возведение стен и перекрытий</li>
+              <li data-i18n="service_build_3">Кровельные и фасадные работы</li>
             </ul>
           </div>
         </div>
@@ -82,52 +91,52 @@
             <img src="./img/Электрик.jfif" alt="Электрика">
           </div>
           <div class="service-content">
-            <h3>Электромонтаж</h3>
-            <p>Монтаж, ремонт и модернизация электропроводки для безопасного и надежного дома.</p>
+            <h3 data-i18n="service_electric_title">Электромонтаж</h3>
+            <p data-i18n="service_electric_desc">Монтаж, ремонт и модернизация электропроводки для безопасного и надежного дома.</p>
             <ul class="service-checklist">
-              <li>Замена старой проводки</li>
-              <li>Перенос розеток и выключателей</li>
-              <li>Установка электрощитов</li>
+              <li data-i18n="service_electric_1">Замена старой проводки</li>
+              <li data-i18n="service_electric_2">Перенос розеток и выключателей</li>
+              <li data-i18n="service_electric_3">Установка электрощитов</li>
             </ul>
           </div>
         </div>
       </section>
 
-      <p class="center"><a class="btn" href="services.html">View all services →</a></p>
+      <p class="center"><a class="btn" href="services.html" data-i18n="view_all_services">View all services →</a></p>
     </section>
 
     <section class="how-we-work container">
-      <div class="section-label">HOW WE WORK</div>
-      <h2>Плавный переход от идеи к реальности</h2>
-      <p class="lead">Мы следуем четкому и сотрудническому процессу, чтобы гарантировать, что каждый проект движется плавно — от первого разговора до финальной передачи.</p>
+      <div class="section-label" data-i18n="work_label">HOW WE WORK</div>
+      <h2 data-i18n="work_title">Плавный переход от идеи к реальности</h2>
+      <p class="lead" data-i18n="work_subtitle">Мы следуем четкому и сотрудническому процессу, чтобы гарантировать, что каждый проект движется плавно — от первого разговора до финальной передачи.</p>
 
       <div class="process-grid">
         <div class="process-step">
           <div class="step-number">01 /04</div>
-          <h3>Consultation & Briefing</h3>
-          <p>Мы начинаем с понимания ваших потребностей, образа жизни и целей. Это помогает определить направление, объем и ожидания.</p>
+          <h3 data-i18n="step_1_title">Consultation & Briefing</h3>
+          <p data-i18n="step_1_desc">Мы начинаем с понимания ваших потребностей, образа жизни и целей. Это помогает определить направление, объем и ожидания.</p>
         </div>
         <div class="process-step">
           <div class="step-number">02 /04</div>
-          <h3>Concept & Design Development</h3>
-          <p>Мы преобразуем ваше описание в концепции, пространственные макеты и визуальные идеи — уточняя их до тех пор, пока дизайн не будет идеальным.</p>
+          <h3 data-i18n="step_2_title">Concept & Design Development</h3>
+          <p data-i18n="step_2_desc">Мы преобразуем ваше описание в концепции, пространственные макеты и визуальные идеи — уточняя их до тех пор, пока дизайн не будет идеальным.</p>
         </div>
         <div class="process-step">
           <div class="step-number">03 /04</div>
-          <h3>Technical & Material Detailing</h3>
-          <p>Мы подготавливаем детальные чертежи, выбираем материалы и координируем технические элементы для обеспечения точности и практичности.</p>
+          <h3 data-i18n="step_3_title">Technical & Material Detailing</h3>
+          <p data-i18n="step_3_desc">Мы подготавливаем детальные чертежи, выбираем материалы и координируем технические элементы для обеспечения точности и практичности.</p>
         </div>
         <div class="process-step">
           <div class="step-number">04 /04</div>
-          <h3>Build & Implementation</h3>
-          <p>Мы контролируем строительство, управляем подрядчиками и гарантируем выполнение каждой детали в соответствии с видением дизайна.</p>
+          <h3 data-i18n="step_4_title">Build & Implementation</h3>
+          <p data-i18n="step_4_desc">Мы контролируем строительство, управляем подрядчиками и гарантируем выполнение каждой детали в соответствии с видением дизайна.</p>
         </div>
       </div>
     </section>
 
     <section class="testimonials container">
-      <div class="section-label">TESTIMONIALS</div>
-      <h2>What our clients say</h2>
+      <div class="section-label" data-i18n="testimonials_label">TESTIMONIALS</div>
+      <h2 data-i18n="testimonials_title">What our clients say</h2>
 
       <div class="testimonials-grid">
         <div class="testimonial-card">
@@ -170,11 +179,12 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="contacts">Телефон: +7 (000) 000-00-00 &nbsp;|&nbsp; Email: info@mk.company</div>
-      <div class="copyright">© MK.COMPANY, 2026</div>
+      <div class="contacts" data-i18n="footer_phone">Телефон: +7 (000) 000-00-00 &nbsp;|&nbsp; Email: info@mk.company</div>
+      <div class="copyright" data-i18n="footer_copyright">© MK.COMPANY, 2026</div>
     </div>
   </footer>
 
+  <script src="js/translations.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

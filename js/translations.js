@@ -1,0 +1,275 @@
+const translations = {
+  en: {
+    nav_home: 'Home',
+    nav_services: 'Services',
+    nav_team: 'Our Team',
+    nav_contact: 'Contacts',
+    
+    hero_title: 'Build and Repair with Quality',
+    hero_subtitle: 'Professional services for home and business — fast, neat, with guarantee.',
+    hero_btn: 'Leave a Request',
+    
+    about_label: 'WHO WE ARE',
+    about_title: 'About the Company',
+    about_text: 'MK.COMPANY is a team of experienced craftsmen in the field of construction and repair. We perform work of any complexity with attention to detail.',
+    
+    services_label: 'WHAT WE DO',
+    services_title: 'Services We Offer',
+    services_subtitle: 'We provide comprehensive construction services that transform client ideas into beautifully designed and functional spaces.',
+    
+    service_repair_title: 'Capital Repair',
+    service_repair_desc: 'Comprehensive turnkey repairs — from cosmetic to major renovation.',
+    service_repair_1: 'Demolition of old coatings',
+    service_repair_2: 'Wall and ceiling alignment',
+    service_repair_3: 'Painting and putty',
+    service_repair_4: 'Installation of doors and baseboards',
+    service_repair_5: 'Cleaning after completion',
+    
+    service_build_title: 'House Construction',
+    service_build_desc: 'We build houses and cottages from scratch according to individual projects.',
+    service_build_1: 'Earthwork and foundation',
+    service_build_2: 'Wall and floor construction',
+    service_build_3: 'Roofing and facade work',
+    service_build_4: 'Interior finishing and engineering networks',
+    service_build_5: 'Cleaning after completion',
+    
+    service_electric_title: 'Electrical Installation',
+    service_electric_desc: 'Installation, repair and modernization of electrical wiring for safe and reliable homes.',
+    service_electric_1: 'Replacement of old wiring',
+    service_electric_2: 'Relocation of outlets and switches',
+    service_electric_3: 'Electrical panel installation',
+    service_electric_4: 'Connection of household appliances',
+    service_electric_5: 'Cleaning after completion',
+    
+    service_plumber_title: 'Plumbing',
+    service_plumber_desc: 'Professional installation and replacement of plumbing equipment.',
+    service_plumber_1: 'Pipe laying',
+    service_plumber_2: 'Installation of faucets, sinks, toilets',
+    service_plumber_3: 'Riser replacement',
+    service_plumber_4: 'Connection of washing and dishwashing machines',
+    service_plumber_5: 'Cleaning after completion',
+    
+    service_facade_title: 'Facade Work',
+    service_facade_desc: 'Facade finishing, insulation, painting and restoration.',
+    service_facade_1: 'Facade finishing with insulation',
+    service_facade_2: 'Painting and hydrophobization',
+    service_facade_3: 'Restoration and cleaning',
+    service_facade_4: 'Installation of weather protection systems',
+    service_facade_5: 'Cleaning after completion',
+    
+    service_cleaning_title: 'Post-Repair Cleaning',
+    service_cleaning_desc: 'Professional cleaning of construction debris, dust and dirt.',
+    service_cleaning_1: 'Construction waste removal',
+    service_cleaning_2: 'Dust and dirt cleaning',
+    service_cleaning_3: 'Window and surface cleaning',
+    service_cleaning_4: 'Disinfection of premises',
+    service_cleaning_5: 'Final cleaning',
+    
+    view_all_services: 'View all services →',
+    leave_request_btn: 'Leave a Request',
+    
+    work_label: 'HOW WE WORK',
+    work_title: 'Smooth Transition from Idea to Reality',
+    work_subtitle: 'We follow a clear and collaborative process to ensure that every project moves smoothly — from the first conversation to the final handover.',
+    
+    step_1_title: 'Consultation & Briefing',
+    step_1_desc: 'We start by understanding your needs, lifestyle and goals. This helps determine direction, scope and expectations.',
+    
+    step_2_title: 'Concept & Design Development',
+    step_2_desc: 'We transform your description into concepts, spatial layouts and visual ideas — refining them until the design is perfect.',
+    
+    step_3_title: 'Technical & Material Detailing',
+    step_3_desc: 'We prepare detailed drawings, select materials and coordinate technical elements to ensure accuracy and practicality.',
+    
+    step_4_title: 'Build & Implementation',
+    step_4_desc: 'We oversee construction, manage contractors and guarantee that every detail is executed according to the design vision.',
+    
+    testimonials_label: 'TESTIMONIALS',
+    testimonials_title: 'What our clients say',
+    
+    team_label: 'OUR TEAM',
+    team_title: 'Our Team',
+    team_subtitle: 'Experienced masters in key areas.',
+    
+    role_carpenter: 'Carpenter',
+    role_designer: 'Interior Designer',
+    role_electrician: 'Electrician',
+    role_plumber: 'Plumber',
+    role_bricklayer: 'Bricklayer',
+    role_foreman: 'Foreman',
+    
+    contact_label: 'CONTACT US',
+    contact_title: 'Contact Us',
+    contact_subtitle: 'Leave a request — we will contact you shortly.',
+    
+    form_name: 'Name',
+    form_email: 'Email',
+    form_phone: 'Phone',
+    form_category: 'Category',
+    form_budget: 'Budget',
+    form_message: 'Message',
+    form_submit: 'Send Request',
+    
+    category_repair: 'Repair',
+    category_building: 'Building',
+    category_electric: 'Electrical',
+    category_plumber: 'Plumbing',
+    category_facade: 'Facade',
+    category_cleaning: 'Post-repair Cleaning',
+    category_other: 'Other',
+    
+    budget_empty: 'Not specified',
+    budget_1: 'Up to 1,000 €',
+    budget_2: '1,000 – 3,000 €',
+    budget_3: '3,000 – 8,000 €',
+    budget_4: '8,000 – 15,000 €',
+    budget_5: '15,000 – 20,000 €',
+    
+    form_success: 'Thank you! Your request has been sent successfully.',
+    
+    footer_phone: 'Phone: +7 (000) 000-00-00 &nbsp;|&nbsp; Email: info@mk.company',
+    footer_copyright: '© MK.COMPANY, 2026',
+    
+    page_title_home: 'MK.COMPANY — Home',
+    page_title_services: 'MK.COMPANY — Services',
+    page_title_team: 'MK.COMPANY — Our Team',
+    page_title_contact: 'MK.COMPANY — Contact Us',
+  },
+  
+  es: {
+    nav_home: 'Inicio',
+    nav_services: 'Servicios',
+    nav_team: 'Nuestro Equipo',
+    nav_contact: 'Contactos',
+    
+    hero_title: 'Construimos y reparamos con calidad',
+    hero_subtitle: 'Servicios profesionales para el hogar y los negocios — rápido, limpio y con garantía.',
+    hero_btn: 'Dejar una solicitud',
+    
+    about_label: 'QUIÉNES SOMOS',
+    about_title: 'Acerca de la Empresa',
+    about_text: 'MK.COMPANY es un equipo de maestros experimentados en construcción y reparación. Realizamos trabajos de cualquier complejidad con atención al detalle.',
+    
+    services_label: 'QUÉ HACEMOS',
+    services_title: 'Servicios que ofrecemos',
+    services_subtitle: 'Proporcionamos servicios de construcción integral que transforman las ideas de los clientes en espacios hermosamente diseñados y funcionales.',
+    
+    service_repair_title: 'Reparación Mayor',
+    service_repair_desc: 'Reparaciones integrales llave en mano — de cosmética a mayor.',
+    service_repair_1: 'Demolición de revestimientos antiguos',
+    service_repair_2: 'Alineación de paredes y techos',
+    service_repair_3: 'Pintura y masilla',
+    service_repair_4: 'Instalación de puertas y zócalos',
+    service_repair_5: 'Limpieza después de la finalización',
+    
+    service_build_title: 'Construcción de Casas',
+    service_build_desc: 'Construimos casas y cabañas desde cero según proyectos individuales.',
+    service_build_1: 'Movimiento de tierras y cimentación',
+    service_build_2: 'Construcción de muros y pisos',
+    service_build_3: 'Trabajo de techos y fachadas',
+    service_build_4: 'Acabados interiores y redes de ingeniería',
+    service_build_5: 'Limpieza después de la finalización',
+    
+    service_electric_title: 'Instalación Eléctrica',
+    service_electric_desc: 'Instalación, reparación y modernización del cableado eléctrico para hogares seguros y confiables.',
+    service_electric_1: 'Reemplazo de cableado antiguo',
+    service_electric_2: 'Reubicación de enchufes e interruptores',
+    service_electric_3: 'Instalación de paneles eléctricos',
+    service_electric_4: 'Conexión de electrodomésticos',
+    service_electric_5: 'Limpieza después de la finalización',
+    
+    service_plumber_title: 'Fontanería',
+    service_plumber_desc: 'Instalación y reemplazo profesional de equipos de plomería.',
+    service_plumber_1: 'Tendido de tuberías',
+    service_plumber_2: 'Instalación de grifos, lavabos, inodoros',
+    service_plumber_3: 'Reemplazo de montantes',
+    service_plumber_4: 'Conexión de lavadoras y lavavajillas',
+    service_plumber_5: 'Limpieza después de la finalización',
+    
+    service_facade_title: 'Trabajo en Fachada',
+    service_facade_desc: 'Acabado de fachadas, aislamiento, pintura y restauración.',
+    service_facade_1: 'Acabado de fachadas con aislamiento',
+    service_facade_2: 'Pintura e hidrofobización',
+    service_facade_3: 'Restauración y limpieza',
+    service_facade_4: 'Instalación de sistemas de protección contra el clima',
+    service_facade_5: 'Limpieza después de la finalización',
+    
+    service_cleaning_title: 'Limpieza Después de la Reparación',
+    service_cleaning_desc: 'Limpieza profesional de escombros de construcción, polvo y suciedad.',
+    service_cleaning_1: 'Eliminación de residuos de construcción',
+    service_cleaning_2: 'Limpieza de polvo y suciedad',
+    service_cleaning_3: 'Limpieza de ventanas y superficies',
+    service_cleaning_4: 'Desinfección de locales',
+    service_cleaning_5: 'Limpieza final',
+    
+    view_all_services: 'Ver todos los servicios →',
+    leave_request_btn: 'Dejar una Solicitud',
+    
+    work_label: 'CÓMO TRABAJAMOS',
+    work_title: 'Transición suave de la idea a la realidad',
+    work_subtitle: 'Seguimos un proceso claro y colaborativo para garantizar que cada proyecto se desarrolle sin problemas — desde la primera conversación hasta la entrega final.',
+    
+    step_1_title: 'Consulta y Briefing',
+    step_1_desc: 'Comenzamos entendiendo sus necesidades, estilo de vida y objetivos. Esto ayuda a determinar la dirección, el alcance y las expectativas.',
+    
+    step_2_title: 'Desarrollo de Concepto y Diseño',
+    step_2_desc: 'Transformamos su descripción en conceptos, diseños espaciales e ideas visuales — refinándolos hasta que el diseño sea perfecto.',
+    
+    step_3_title: 'Detalles Técnicos y de Materiales',
+    step_3_desc: 'Preparamos planos detallados, seleccionamos materiales y coordinamos elementos técnicos para garantizar precisión y practicidad.',
+    
+    step_4_title: 'Construcción e Implementación',
+    step_4_desc: 'Supervisamos la construcción, gestionamos contratistas y garantizamos que cada detalle se ejecute de acuerdo con la visión del diseño.',
+    
+    testimonials_label: 'TESTIMONIOS',
+    testimonials_title: 'Lo que dicen nuestros clientes',
+    
+    team_label: 'NUESTRO EQUIPO',
+    team_title: 'Nuestro Equipo',
+    team_subtitle: 'Maestros experimentados en áreas clave.',
+    
+    role_carpenter: 'Carpintero',
+    role_designer: 'Diseñador de Interiores',
+    role_electrician: 'Electricista',
+    role_plumber: 'Fontanero',
+    role_bricklayer: 'Albañil',
+    role_foreman: 'Capataz',
+    
+    contact_label: 'CONTÁCTANOS',
+    contact_title: 'Contactos',
+    contact_subtitle: 'Deje una solicitud — nos pondremos en contacto con usted en breve.',
+    
+    form_name: 'Nombre',
+    form_email: 'Correo Electrónico',
+    form_phone: 'Teléfono',
+    form_category: 'Categoría',
+    form_budget: 'Presupuesto',
+    form_message: 'Mensaje',
+    form_submit: 'Enviar Solicitud',
+    
+    category_repair: 'Reparación',
+    category_building: 'Construcción',
+    category_electric: 'Eléctrica',
+    category_plumber: 'Fontanería',
+    category_facade: 'Fachada',
+    category_cleaning: 'Limpieza Después de la Reparación',
+    category_other: 'Otro',
+    
+    budget_empty: 'No especificado',
+    budget_1: 'Hasta 1.000 €',
+    budget_2: '1.000 – 3.000 €',
+    budget_3: '3.000 – 8.000 €',
+    budget_4: '8.000 – 15.000 €',
+    budget_5: '15.000 – 20.000 €',
+    
+    form_success: 'Gracias! Su solicitud ha sido enviada correctamente.',
+    
+    footer_phone: 'Teléfono: +7 (000) 000-00-00 &nbsp;|&nbsp; Email: info@mk.company',
+    footer_copyright: '© MK.COMPANY, 2026',
+    
+    page_title_home: 'MK.COMPANY — Inicio',
+    page_title_services: 'MK.COMPANY — Servicios',
+    page_title_team: 'MK.COMPANY — Nuestro Equipo',
+    page_title_contact: 'MK.COMPANY — Contactos',
+  }
+};

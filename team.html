@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MK.COMPANY — Наша команда</title>
+  <title data-i18n="page_title_team">MK.COMPANY — Наша команда</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -16,50 +16,59 @@
       <button class="burger" id="burger-menu" aria-label="Меню">☰</button>
       <nav class="nav-menu" id="nav-menu">
         <ul class="nav">
-          <li><a href="index.html">Главная</a></li>
-          <li><a href="services.html">Услуги</a></li>
-          <li><a href="team.html">Наша команда</a></li>
-          <li><a href="contact.html">Контакты</a></li>
+          <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+          <li><a href="services.html" data-i18n="nav_services">Services</a></li>
+          <li><a href="team.html" data-i18n="nav_team">Our Team</a></li>
+          <li><a href="contact.html" data-i18n="nav_contact">Contacts</a></li>
+          <li class="nav-lang">
+            <div class="lang-dropdown">
+              <button class="lang-trigger" id="lang-trigger">EN ▼</button>
+              <div class="lang-menu" id="lang-menu">
+                <button class="lang-option" data-lang="en">English</button>
+                <button class="lang-option" data-lang="es">Español</button>
+              </div>
+            </div>
+          </li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main class="container">
-    <div class="section-label">OUR TEAM</div>
-    <h1>Наша команда</h1>
-    <p class="lead">Опытные мастера по ключевым направлениям.</p>
+    <div class="section-label" data-i18n="team_label">OUR TEAM</div>
+    <h1 data-i18n="team_title">Наша команда</h1>
+    <p class="lead" data-i18n="team_subtitle">Опытные мастера по ключевым направлениям.</p>
 
     <section class="grid team-grid">
       <article class="member card">
         <img src="https://i.pravatar.cc/300?img=4" alt="Иван Иванов">
         <h3>Иван Иванов</h3>
-        <p class="role">Плотник</p>
+        <p class="role" data-i18n="role_carpenter">Плотник</p>
       </article>
       <article class="member card">
         <img src="https://i.pravatar.cc/300?img=5" alt="Ольга Смирнова">
         <h3>Ольга Смирнова</h3>
-        <p class="role">Дизайн-интерьера</p>
+        <p class="role" data-i18n="role_designer">Дизайн-интерьера</p>
       </article>
       <article class="member card">
         <img src="https://i.pravatar.cc/300?img=6" alt="Пётр Кузнецов">
         <h3>Пётр Кузнецов</h3>
-        <p class="role">Электрик</p>
+        <p class="role" data-i18n="role_electrician">Электрик</p>
       </article>
       <article class="member card">
         <img src="https://i.pravatar.cc/300?img=7" alt="Мария Лебедева">
         <h3>Мария Лебедева</h3>
-        <p class="role">Сантехник</p>
+        <p class="role" data-i18n="role_plumber">Сантехник</p>
       </article>
       <article class="member card">
         <img src="https://i.pravatar.cc/300?img=8" alt="Алексей Орлов">
         <h3>Алексей Орлов</h3>
-        <p class="role">Каменщик</p>
+        <p class="role" data-i18n="role_bricklayer">Каменщик</p>
       </article>
       <article class="member card">
         <img src="https://i.pravatar.cc/300?img=9" alt="Екатерина Новикова">
         <h3>Екатерина Новикова</h3>
-        <p class="role">Прораб</p>
+        <p class="role" data-i18n="role_foreman">Прораб</p>
       </article>
     </section>
 
@@ -67,11 +76,12 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="contacts">Телефон: +7 (000) 000-00-00 &nbsp;|&nbsp; Email: info@mk.company</div>
-      <div class="copyright">© MK.COMPANY, 2026</div>
+      <div class="contacts" data-i18n="footer_phone">Телефон: +7 (000) 000-00-00 &nbsp;|&nbsp; Email: info@mk.company</div>
+      <div class="copyright" data-i18n="footer_copyright">© MK.COMPANY, 2026</div>
     </div>
   </footer>
 
+  <script src="js/translations.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

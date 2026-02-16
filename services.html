@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MK.COMPANY — Услуги</title>
+  <title data-i18n="page_title_services">MK.COMPANY — Услуги</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -16,19 +16,28 @@
       <button class="burger" id="burger-menu" aria-label="Меню">☰</button>
       <nav class="nav-menu" id="nav-menu">
         <ul class="nav">
-          <li><a href="index.html">Главная</a></li>
-          <li><a href="services.html">Услуги</a></li>
-          <li><a href="team.html">Наша команда</a></li>
-          <li><a href="contact.html">Контакты</a></li>
+          <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+          <li><a href="services.html" data-i18n="nav_services">Services</a></li>
+          <li><a href="team.html" data-i18n="nav_team">Our Team</a></li>
+          <li><a href="contact.html" data-i18n="nav_contact">Contacts</a></li>
+          <li class="nav-lang">
+            <div class="lang-dropdown">
+              <button class="lang-trigger" id="lang-trigger">EN ▼</button>
+              <div class="lang-menu" id="lang-menu">
+                <button class="lang-option" data-lang="en">English</button>
+                <button class="lang-option" data-lang="es">Español</button>
+              </div>
+            </div>
+          </li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main class="container">
-    <div class="section-label">WHAT WE DO</div>
-    <h1>Какие услуги мы можем предложить</h1>
-    <p class="lead">Мы предоставляем комплексные строительные услуги, превосходящая идеи клиентов в красиво оформленные и функциональные пространства.</p>
+    <div class="section-label" data-i18n="services_label">WHAT WE DO</div>
+    <h1 data-i18n="services_title">Какие услуги мы можем предложить</h1>
+    <p class="lead" data-i18n="services_subtitle">Мы предоставляем комплексные строительные услуги, превосходящая идеи клиентов в красиво оформленные и функциональные пространства.</p>
 
     <section class="services-full">
       <div class="service-item">
@@ -36,15 +45,16 @@
           <img src="/img/ремонты.jpeg" alt="Ремонт квартиры">
         </div>
         <div class="service-content">
-          <h3>Капитальный ремонт</h3>
-          <p>Комплексные ремонтные работы под ключ — от космического до капитального.</p>
+          <h3 data-i18n="service_repair_title">Капитальный ремонт</h3>
+          <p data-i18n="service_repair_desc">Комплексные ремонтные работы под ключ — от космического до капитального.</p>
           <ul class="service-checklist">
-            <li>Демонтаж старых покрытий</li>
-            <li>Выравнивание стен и потолков</li>
-            <li>Покраска и шпатлевка</li>
-            <li>Установка дверей, плинтусов</li>
-            <li>Уборка после завершения работ</li>
+            <li data-i18n="service_repair_1">Демонтаж старых покрытий</li>
+            <li data-i18n="service_repair_2">Выравнивание стен и потолков</li>
+            <li data-i18n="service_repair_3">Покраска и шпатлевка</li>
+            <li data-i18n="service_repair_4">Установка дверей, плинтусов</li>
+            <li data-i18n="service_repair_5">Уборка после завершения работ</li>
           </ul>
+          <a href="contact.html?category=repair" class="btn" data-i18n="leave_request_btn">Leave a Request</a>
         </div>
       </div>
 
@@ -53,15 +63,16 @@
           <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=250&fit=crop" alt="Строительство дома">
         </div>
         <div class="service-content">
-          <h3>Строительство дома</h3>
-          <p>Возводим дома и коттеджи с нуля по индивидуальным проектам.</p>
+          <h3 data-i18n="service_build_title">Строительство дома</h3>
+          <p data-i18n="service_build_desc">Возводим дома и коттеджи с нуля по индивидуальным проектам.</p>
           <ul class="service-checklist">
-            <li>Земельные работы, фундамент</li>
-            <li>Возведение стен и перекрытий</li>
-            <li>Кровельные и фасадные работы</li>
-            <li>Внутренняя отделка и инженерные сети</li>
-            <li>Уборка после завершения работ</li>
+            <li data-i18n="service_build_1">Земельные работы, фундамент</li>
+            <li data-i18n="service_build_2">Возведение стен и перекрытий</li>
+            <li data-i18n="service_build_3">Кровельные и фасадные работы</li>
+            <li data-i18n="service_build_4">Внутренняя отделка и инженерные сети</li>
+            <li data-i18n="service_build_5">Уборка после завершения работ</li>
           </ul>
+          <a href="contact.html?category=building" class="btn" data-i18n="leave_request_btn">Leave a Request</a>
         </div>
       </div>
 
@@ -70,15 +81,16 @@
           <img src="/img/Электрик.jfif" alt="Электромонтаж">
         </div>
         <div class="service-content">
-          <h3>Электромонтаж</h3>
-          <p>Монтаж, ремонт и модернизация электропроводки для безопасного и надежного дома.</p>
+          <h3 data-i18n="service_electric_title">Электромонтаж</h3>
+          <p data-i18n="service_electric_desc">Монтаж, ремонт и модернизация электропроводки для безопасного и надежного дома.</p>
           <ul class="service-checklist">
-            <li>Замена старой проводки</li>
-            <li>Перенос розеток и выключателей</li>
-            <li>Установка электрощитов</li>
-            <li>Подключение бытовой техники</li>
-            <li>Уборка после завершения работ</li>
+            <li data-i18n="service_electric_1">Замена старой проводки</li>
+            <li data-i18n="service_electric_2">Перенос розеток и выключателей</li>
+            <li data-i18n="service_electric_3">Установка электрощитов</li>
+            <li data-i18n="service_electric_4">Подключение бытовой техники</li>
+            <li data-i18n="service_electric_5">Уборка после завершения работ</li>
           </ul>
+          <a href="contact.html?category=electric" class="btn" data-i18n="leave_request_btn">Leave a Request</a>
         </div>
       </div>
 
@@ -87,15 +99,16 @@
           <img src="/img/сантехник.jfif" alt="Сантехника">
         </div>
         <div class="service-content">
-          <h3>Сантехника</h3>
-          <p>Профессиональный монтаж и замена сантехнического оборудования.</p>
+          <h3 data-i18n="service_plumber_title">Сантехника</h3>
+          <p data-i18n="service_plumber_desc">Профессиональный монтаж и замена сантехнического оборудования.</p>
           <ul class="service-checklist">
-            <li>Прокладка труб</li>
-            <li>Установка смесителей, раковин, унитазов</li>
-            <li>Замена стояков</li>
-            <li>Подключение стиральных и посудомоечных машин</li>
-            <li>Уборка после завершения работ</li>
+            <li data-i18n="service_plumber_1">Прокладка труб</li>
+            <li data-i18n="service_plumber_2">Установка смесителей, раковин, унитазов</li>
+            <li data-i18n="service_plumber_3">Замена стояков</li>
+            <li data-i18n="service_plumber_4">Подключение стиральных и посудомоечных машин</li>
+            <li data-i18n="service_plumber_5">Уборка после завершения работ</li>
           </ul>
+          <a href="contact.html?category=plumber" class="btn" data-i18n="leave_request_btn">Leave a Request</a>
         </div>
       </div>
 
@@ -104,15 +117,16 @@
           <img src="/img/Фасад.jfif" alt="Фасадные работы">
         </div>
         <div class="service-content">
-          <h3>Фасадные работы</h3>
-          <p>Отделка фасадов, утепление, покраска и реставрация.</p>
+          <h3 data-i18n="service_facade_title">Фасадные работы</h3>
+          <p data-i18n="service_facade_desc">Отделка фасадов, утепление, покраска и реставрация.</p>
           <ul class="service-checklist">
-            <li>Отделка фасадов утеплением</li>
-            <li>Покраска и гидрофобизация</li>
-            <li>Реставрация и очистка</li>
-            <li>Установка систем для защиты от атмосферных явлений</li>
-            <li>Уборка после завершения работ</li>
+            <li data-i18n="service_facade_1">Отделка фасадов утеплением</li>
+            <li data-i18n="service_facade_2">Покраска и гидрофобизация</li>
+            <li data-i18n="service_facade_3">Реставрация и очистка</li>
+            <li data-i18n="service_facade_4">Установка систем для защиты от атмосферных явлений</li>
+            <li data-i18n="service_facade_5">Уборка после завершения работ</li>
           </ul>
+          <a href="contact.html?category=facade" class="btn" data-i18n="leave_request_btn">Leave a Request</a>
         </div>
       </div>
 
@@ -121,15 +135,16 @@
           <img src="/img/Уборка.jfif" alt="Уборка после ремонта">
         </div>
         <div class="service-content">
-          <h3>Уборка после ремонта</h3>
-          <p>Профессиональная уборка строительного мусора, пыли и загрязнений.</p>
+          <h3 data-i18n="service_cleaning_title">Уборка после ремонта</h3>
+          <p data-i18n="service_cleaning_desc">Профессиональная уборка строительного мусора, пыли и загрязнений.</p>
           <ul class="service-checklist">
-            <li>Вывоз строительного мусора</li>
-            <li>Уборка пыли и загрязнений</li>
-            <li>Очистка окон и поверхностей</li>
-            <li>Дезинфекция помещений</li>
-            <li>Финальная уборка</li>
+            <li data-i18n="service_cleaning_1">Вывоз строительного мусора</li>
+            <li data-i18n="service_cleaning_2">Уборка пыли и загрязнений</li>
+            <li data-i18n="service_cleaning_3">Очистка окон и поверхностей</li>
+            <li data-i18n="service_cleaning_4">Дезинфекция помещений</li>
+            <li data-i18n="service_cleaning_5">Финальная уборка</li>
           </ul>
+          <a href="contact.html?category=cleaning" class="btn" data-i18n="leave_request_btn">Leave a Request</a>
         </div>
       </div>
     </section>
@@ -138,11 +153,12 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="contacts">Телефон: +7 (000) 000-00-00 &nbsp;|&nbsp; Email: info@mk.company</div>
-      <div class="copyright">© MK.COMPANY, 2026</div>
+      <div class="contacts" data-i18n="footer_phone">Телефон: +7 (000) 000-00-00 &nbsp;|&nbsp; Email: info@mk.company</div>
+      <div class="copyright" data-i18n="footer_copyright">© MK.COMPANY, 2026</div>
     </div>
   </footer>
 
+  <script src="js/translations.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

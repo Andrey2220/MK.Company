@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MK.COMPANY — Контакты</title>
+  <title data-i18n="page_title_contact">MK.COMPANY — Контакты</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -16,74 +16,90 @@
       <button class="burger" id="burger-menu" aria-label="Меню">☰</button>
       <nav class="nav-menu" id="nav-menu">
         <ul class="nav">
-          <li><a href="index.html">Главная</a></li>
-          <li><a href="services.html">Услуги</a></li>
-          <li><a href="team.html">Наша команда</a></li>
-          <li><a href="contact.html">Контакты</a></li>
+          <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+          <li><a href="services.html" data-i18n="nav_services">Services</a></li>
+          <li><a href="team.html" data-i18n="nav_team">Our Team</a></li>
+          <li><a href="contact.html" data-i18n="nav_contact">Contacts</a></li>
+          <li class="nav-lang">
+            <div class="lang-dropdown">
+              <button class="lang-trigger" id="lang-trigger">EN ▼</button>
+              <div class="lang-menu" id="lang-menu">
+                <button class="lang-option" data-lang="en">English</button>
+                <button class="lang-option" data-lang="es">Español</button>
+              </div>
+            </div>
+          </li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main class="container">
-    <div class="section-label">CONTACT US</div>
-    <h1>Контакты</h1>
-    <p class="lead">Оставьте заявку — мы свяжемся с вами в ближайшее время.</p>
+    <div class="section-label" data-i18n="contact_label">CONTACT US</div>
+    <h1 data-i18n="contact_title">Контакты</h1>
+    <p class="lead" data-i18n="contact_subtitle">Оставьте заявку — мы свяжемся с вами в ближайшее время.</p>
 
     <form id="contact-form" class="contact-form" method="post" action="#">
-      <label>Имя
+      <label>
+        <span data-i18n="form_name">Name</span>
         <input type="text" name="name" required>
       </label>
 
-      <label>Email
+      <label>
+        <span data-i18n="form_email">Email</span>
         <input type="email" name="email" required>
       </label>
 
-      <label>Телефон
+      <label>
+        <span data-i18n="form_phone">Phone</span>
         <input type="tel" name="phone">
       </label>
 
-      <label>Категория
+      <label>
+        <span data-i18n="form_category">Category</span>
         <select name="category">
-          <option>Ремонт</option>
-          <option>Строительство</option>
-          <option>Электрика</option>
-          <option>Сантехника</option>
-          <option>Фасад</option>
-          <option>Уборка после ремонта</option>
-          <option>Другое</option>
+          <option value="repair" data-i18n="category_repair">Repair</option>
+          <option value="building" data-i18n="category_building">Building</option>
+          <option value="electric" data-i18n="category_electric">Electrical</option>
+          <option value="plumber" data-i18n="category_plumber">Plumbing</option>
+          <option value="facade" data-i18n="category_facade">Facade</option>
+          <option value="cleaning" data-i18n="category_cleaning">Post-repair Cleaning</option>
+          <option value="other" data-i18n="category_other">Other</option>
         </select>
       </label>
 
-      <label>Бюджет
+      <label>
+        <span data-i18n="form_budget">Budget</span>
         <select name="budget">
-          <option value="">Не указан</option>
-          <option value="до 1000">До 1 000 €</option>
-          <option value="1000-3000">1 000 – 3 000 €</option>
-          <option value="3000-8000">3 000 – 8 000 €</option>
-          <option value="8000-15000">8 000 – 15 000 €</option>
-          <option value="15000-20000">15 000 – 20 000 €</option>
+          <option value="" data-i18n="budget_empty">Not specified</option>
+          <option value="up-1000" data-i18n="budget_1">Up to 1,000 €</option>
+          <option value="1000-3000" data-i18n="budget_2">1,000 – 3,000 €</option>
+          <option value="3000-8000" data-i18n="budget_3">3,000 – 8,000 €</option>
+          <option value="8000-15000" data-i18n="budget_4">8,000 – 15,000 €</option>
+          <option value="15000-20000" data-i18n="budget_5">15,000 – 20,000 €</option>
         </select>
       </label>
 
-      <label>Сообщение
+      <label>
+        <span data-i18n="form_message">Message</span>
         <textarea name="message" rows="5"></textarea>
       </label>
 
-      <button type="submit" class="btn btn-accent">Отправить заявку</button>
+      <button type="submit" class="btn btn-accent" data-i18n="form_submit">Send Request</button>
     </form>
 
-    <div id="form-success" class="form-success" hidden>Спасибо! Ваша заявка успешно отправлена.</div>
+    <div id="form-success" class="form-success" data-i18n="form_success" hidden>Спасибо! Ваша заявка успешно отправлена.</div>
 
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="contacts">Телефон: +7 (000) 000-00-00 &nbsp;|&nbsp; Email: info@mk.company</div>
-      <div class="copyright">© MK.COMPANY, 2026</div>
+      <div class="contacts" data-i18n="footer_phone">Телефон: +7 (000) 000-00-00 &nbsp;|&nbsp; Email: info@mk.company</div>
+      <div class="copyright" data-i18n="footer_copyright">© MK.COMPANY, 2026</div>
     </div>
   </footer>
 
+  <script src="js/translations.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
