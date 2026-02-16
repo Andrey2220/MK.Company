@@ -163,10 +163,23 @@ p {
   text-decoration: none;
   color: var(--text);
   letter-spacing: 1px;
+  display: flex;
+  align-items: center;
 }
 
 .brand:hover {
   color: var(--accent);
+}
+
+.logo {
+  height: 65px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.brand:hover .logo {
+  transform: scale(1.05);
 }
 
 .burger {
