@@ -142,6 +142,8 @@ const translations = {
     review_form_close: 'Close',
     review_success: 'Thank you for your review!',
     
+    footer_contact_maxim: 'Contact Person:',
+    footer_email: 'Email:',
     footer_phone: 'Phone: +7 (000) 000-00-00 &nbsp;|&nbsp; Email: info@mk.company',
     footer_copyright: '© MK.COMPANY, 2026',
     
@@ -301,6 +303,8 @@ const translations = {
     review_form_close: 'Cerrar',
     review_success: 'Gracias por su reseña!',
     
+    footer_contact_maxim: 'Contacto:',
+    footer_email: 'Correo:',
     footer_phone: 'Teléfono: +7 (000) 000-00-00 &nbsp;|&nbsp; Email: info@mk.company',
     footer_copyright: '© MK.COMPANY, 2026',
     
