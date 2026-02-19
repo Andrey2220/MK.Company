@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MK.COMPANY — Admin</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="container admin-page">
+    <div class="admin-header">
+      <h1>Admin Panel</h1>
+      <p class="lead">Красивое и удобное управление сайтом: тексты, фото, галерея, настройки.</p>
+    </div>
+
+    <section class="admin-card" id="admin-login-card">
+      <h2>Вход</h2>
+      <label>
+        <span>Пароль администратора</span>
+        <input type="password" id="admin-password" placeholder="Введите пароль">
+      </label>
+      <p><button class="btn btn-accent" id="admin-login-btn">Войти</button></p>
+      <div id="admin-login-status" class="admin-status" hidden></div>
+    </section>
+
+    <section class="admin-card" id="admin-panel" hidden>
+      <div class="admin-tabs" role="tablist" aria-label="Admin sections">
+        <button class="admin-tab-btn active" data-tab="editor" type="button">Редактор сайта</button>
+        <button class="admin-tab-btn" data-tab="gallery" type="button">Галерея</button>
+        <button class="admin-tab-btn" data-tab="settings" type="button">Настройки</button>
+      </div>
+
+      <div class="admin-tab-panel active" data-panel="editor">
+        <h3>Визуальный редактор (как просмотр сайта)</h3>
+        <p class="admin-hint">Откройте страницу, кликните по тексту или фото, внесите правку и нажмите «Сохранить». Можно включить автосохранение.</p>
+
+        <div class="visual-toolbar">
+          <select id="visual-page-select">
+            <option value="/index.html">Главная</option>
+            <option value="/services.html">Услуги</option>
+            <option value="/gallery.html">Галерея</option>
+            <option value="/contact.html">Контакты</option>
+          </select>
+          <button class="btn" id="visual-load-btn">Открыть страницу</button>
+          <label class="admin-inline-toggle" for="visual-autosave-enabled">
+            <input type="checkbox" id="visual-autosave-enabled" checked>
+            <span>Автосохранение</span>
+          </label>
+        </div>
+
+        <div class="visual-editor-grid">
+          <div class="visual-preview-wrap">
+            <iframe id="visual-editor-frame" title="Visual editor preview"></iframe>
+          </div>
+
+          <div class="visual-side-panel">
+            <label>
+              <span>Выбранный элемент</span>
+              <input type="text" id="visual-selected-selector" readonly>
+            </label>
+
+            <label>
+              <span>Тип изменения</span>
+              <select id="visual-selected-type">
+                <option value="text">text</option>
+                <option value="html">html</option>
+                <option value="src">src (для фото)</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Новое значение</span>
+              <textarea id="visual-selected-value" rows="6" placeholder="Новый текст или путь к изображению"></textarea>
+            </label>
+
+            <button class="btn btn-accent" id="visual-save-selected-btn">Сохранить</button>
+            <div id="visual-status" class="admin-status" hidden></div>
+          </div>
+        </div>
+
+        <hr>
+
+        <h3>Загрузка фото</h3>
+        <div class="admin-upload-row">
+          <input type="file" id="image-file" accept="image/*">
+          <button class="btn" id="upload-image-btn">Загрузить</button>
+        </div>
+        <label>
+          <span>Путь загруженного фото</span>
+          <input type="text" id="uploaded-image-path" readonly placeholder="После загрузки появится путь">
+        </label>
+        <button class="btn" id="insert-uploaded-image-btn" type="button">Вставить путь в выбранный элемент</button>
+        <div id="upload-status" class="admin-status" hidden></div>
+      </div>
+
+      <div class="admin-tab-panel" data-panel="gallery" hidden>
+        <h3>Галерея: добавить / убрать фото</h3>
+        <p class="admin-hint">Добавляйте карточки, меняйте порядок, а внутри каждой карточки нажимайте «+ Фото» для дополнительных фото (они открываются только при клике на эту карточку).</p>
+        <div id="admin-gallery-list" class="admin-gallery-list"></div>
+        <p>
+          <button class="btn" id="admin-gallery-add-btn">+ Добавить фото</button>
+          <button class="btn btn-accent" id="admin-gallery-save-btn">Сохранить галерею</button>
+        </p>
+        <div id="admin-gallery-status" class="admin-status" hidden></div>
+      </div>
+
+      <div class="admin-tab-panel" data-panel="settings" hidden>
+        <h3>Настройки сайта</h3>
+        <label class="admin-toggle">
+          <input type="checkbox" id="comments-enabled">
+          <span>Разрешить пользователям оставлять отзывы</span>
+        </label>
+        <p><button class="btn btn-accent" id="save-config-btn">Сохранить настройки</button></p>
+        <div id="admin-config-status" class="admin-status" hidden></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

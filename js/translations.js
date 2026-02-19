@@ -2,7 +2,8 @@ const translations = {
   en: {
     nav_home: 'Home',
     nav_services: 'Services',
-    nav_team: 'Our Team',
+    nav_team: 'Portfolio',
+    nav_gallery: 'Gallery',
     nav_contact: 'Contacts',
     
     hero_title: 'Build and Repair with Quality',
@@ -67,6 +68,7 @@ const translations = {
     service_cleaning_3: 'Window and surface cleaning',
     service_cleaning_4: 'Disinfection of premises',
     service_cleaning_5: 'Final cleaning',
+    service_cleaning_6: 'Deep cleaning of upholstered furniture',
     
     view_all_services: 'View all services →',
     leave_request_btn: 'Leave a Request',
@@ -142,10 +144,14 @@ const translations = {
     review_form_close: 'Close',
     review_success: 'Thank you for your review!',
     
-    footer_contact_maxim: 'Contact Person:',
-    footer_email: 'Email:',
-    footer_phone: 'Phone: +7 (000) 000-00-00 &nbsp;|&nbsp; Email: info@mk.company',
-    footer_copyright: '© MK.COMPANY, 2026',
+    footer_brand: 'MK.COMPANY',
+    footer_building: 'building',
+    footer_tagline: 'Professional construction and repair services with quality guarantee.',
+    footer_contact_title: 'Contact Info',
+    footer_contact_name: 'Maxim',
+    footer_links_title: 'Quick Links',
+    footer_location: 'Valencia, Spain',
+    footer_copyright: '© MK.COMPANY, 2026 — All Rights Reserved',
     
     page_title_home: 'MK.COMPANY — Home',
     page_title_services: 'MK.COMPANY — Services',
@@ -163,7 +169,8 @@ const translations = {
   es: {
     nav_home: 'Inicio',
     nav_services: 'Servicios',
-    nav_team: 'Nuestro Equipo',
+    nav_team: 'Portafolio',
+    nav_gallery: 'Galería',
     nav_contact: 'Contactos',
     
     hero_title: 'Construimos y reparamos con calidad',
@@ -228,6 +235,7 @@ const translations = {
     service_cleaning_3: 'Limpieza de ventanas y superficies',
     service_cleaning_4: 'Desinfección de locales',
     service_cleaning_5: 'Limpieza final',
+    service_cleaning_6: 'Limpieza profunda de muebles tapizados',
     
     view_all_services: 'Ver todos los servicios →',
     leave_request_btn: 'Dejar una Solicitud',
@@ -303,10 +311,14 @@ const translations = {
     review_form_close: 'Cerrar',
     review_success: 'Gracias por su reseña!',
     
-    footer_contact_maxim: 'Contacto:',
-    footer_email: 'Correo:',
-    footer_phone: 'Teléfono: +7 (000) 000-00-00 &nbsp;|&nbsp; Email: info@mk.company',
-    footer_copyright: '© MK.COMPANY, 2026',
+    footer_brand: 'MK.COMPANY',
+    footer_building: 'building',
+    footer_tagline: 'Servicios profesionales de construcción y reparación con garantía de calidad.',
+    footer_contact_title: 'Información de Contacto',
+    footer_contact_name: 'Maxim',
+    footer_links_title: 'Enlaces Rápidos',
+    footer_location: 'Valencia, España',
+    footer_copyright: '© MK.COMPANY, 2026 — Todos los Derechos Reservados',
     
     page_title_home: 'MK.COMPANY — Inicio',
     page_title_services: 'MK.COMPANY — Servicios',

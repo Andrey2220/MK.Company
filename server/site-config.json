@@ -1,0 +1,81 @@
+{
+  "commentsEnabled": false,
+  "overrides": [
+    {
+      "selector": "body > main > section:nth-of-type(4) > div:nth-of-type(2) > div:nth-of-type(4) > h3",
+      "type": "text",
+      "value": "Entregar la obra"
+    },
+    {
+      "selector": "body > main > section:nth-of-type(3) > section > div:nth-of-type(3) > div:nth-of-type(1) > img",
+      "type": "src",
+      "value": "./img/Электрик.jfif"
+    },
+    {
+      "selector": "body > main > section > div:nth-of-type(2) > div:nth-of-type(1) > img",
+      "type": "src",
+      "value": "/img/uploads/1771461523786-y4ik4i.jpg"
+    }
+  ],
+  "galleryItems": [
+    {
+      "image": "img/ремонты.jpeg",
+      "images": [
+        "img/ремонты.jpeg"
+      ],
+      "alt": "Reparación de apartamentos",
+      "title": "Reparación capitular de apartamentos",
+      "description": "Reparación integral desde cero"
+    },
+    {
+      "image": "img/стройка.jfif",
+      "images": [
+        "img/стройка.jfif",
+        "/img/uploads/1771460626194-jmxvmw.jpg",
+        "/img/uploads/1771460646309-rc0kvd.jpg",
+        "/img/uploads/1771460661367-nkr8u6.jpg"
+      ],
+      "alt": "Construcción de casas",
+      "title": "Construcción de cabaña",
+      "description": "Construcción de casas según proyecto individual"
+    },
+    {
+      "image": "img/Электрик.jfif",
+      "images": [
+        "img/Электрик.jfif"
+      ],
+      "alt": "Instalación eléctrica",
+      "title": "Trabajos de instalación eléctrica",
+      "description": "Instalación y modernización del cableado eléctrico"
+    },
+    {
+      "image": "img/сантехник.jfif",
+      "images": [
+        "img/сантехник.jfif"
+      ],
+      "alt": "Trabajos de fontanería",
+      "title": "Trabajos de fontanería",
+      "description": "Instalación y reparación de sistemas de agua"
+    },
+    {
+      "image": "/img/uploads/1771460752021-1tw2lw.jpg",
+      "images": [
+        "/img/uploads/1771460752021-1tw2lw.jpg",
+        "/img/uploads/1771460682507-d699h9.jpg",
+        "/img/uploads/1771460690340-5iz6mg.jpg"
+      ],
+      "alt": "Trabajos de fachada",
+      "title": "Trabajos de fachada",
+      "description": "Revestimiento y restauración de fachadas"
+    },
+    {
+      "image": "img/Уборка.jfif",
+      "images": [
+        "img/Уборка.jfif"
+      ],
+      "alt": "Limpieza después de la reparación",
+      "title": "Limpieza y acabados finales",
+      "description": "Limpieza profesional después de la reparación"
+    }
+  ]
+}
