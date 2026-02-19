@@ -15,6 +15,11 @@
       "selector": "body > main > section > div:nth-of-type(2) > div:nth-of-type(1) > img",
       "type": "src",
       "value": "/img/uploads/1771461523786-y4ik4i.jpg"
+    },
+    {
+      "selector": "body > main > section:nth-of-type(5) > h2",
+      "type": "text",
+      "value": "Lo que dicen nuestros clientes"
     }
   ],
   "galleryItems": [
