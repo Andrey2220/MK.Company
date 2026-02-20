@@ -15,12 +15,34 @@ function loadTranslations() {
       }
     }
   });
+
+  document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+    const key = el.getAttribute('data-i18n-aria-label');
+    if (translations[currentLanguage][key]) {
+      el.setAttribute('aria-label', translations[currentLanguage][key]);
+    }
+  });
+
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    const key = el.getAttribute('data-i18n-title');
+    if (translations[currentLanguage][key]) {
+      el.setAttribute('title', translations[currentLanguage][key]);
+    }
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (translations[currentLanguage][key]) {
+      el.setAttribute('placeholder', translations[currentLanguage][key]);
+    }
+  });
   
   // Update page title
   const pageTitle = document.querySelector('title');
   if (pageTitle) {
     const titleKey = 'page_title_' + (window.location.pathname.includes('services') ? 'services' : 
                                       window.location.pathname.includes('team') ? 'team' :
+                                      window.location.pathname.includes('gallery') ? 'gallery' :
                                       window.location.pathname.includes('contact') ? 'contact' : 'home');
     if (translations[currentLanguage][titleKey]) {
       pageTitle.textContent = translations[currentLanguage][titleKey];
@@ -65,6 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
     return text.replace(/[&<>"']/g, function(ch) {
       return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]);
     });
+  }
+
+  function t(key, fallback = '') {
+    return (translations[currentLanguage] && translations[currentLanguage][key])
+      ? translations[currentLanguage][key]
+      : fallback;
   }
 
   function renderGalleryItems(items) {
@@ -260,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let budget = form.elements['budget'] ? form.elements['budget'].value : '';
       if (budget === 'custom') {
         const customBudgetValue = document.querySelector('input[name="custom_budget"]').value;
-        budget = customBudgetValue ? `€${customBudgetValue}` : 'Custom amount';
+        budget = customBudgetValue ? `€${customBudgetValue}` : t('budget_custom', 'Custom amount');
       }
 
       const data = {
@@ -290,11 +318,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 5000);
           }
         } else {
-          alert((json && json.error) ? json.error : 'Error al enviar. Intenta más tarde.');
+          alert((json && json.error) ? json.error : t('form_submit_error', 'Failed to send. Please try later.'));
         }
       } catch (err) {
         console.error('Form error:', err);
-        alert('No se pudo enviar el formulario. Verifica tu conexión con el servidor.');
+        alert(t('form_submit_connection', 'Could not submit the form. Please check your connection.'));
       }
     });
   }
@@ -308,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
   async function loadReviews() {
     const grid = document.getElementById('testimonials-grid');
     if (!grid) return;
-    grid.innerHTML = '<div class="testimonial-loading">Cargando reseñas...</div>';
+    grid.innerHTML = `<div class="testimonial-loading">${t('reviews_loading', 'Loading reviews...')}</div>`;
     displayedCount = 0;
     try {
       const res = await fetch('/api/reviews');
@@ -320,10 +348,11 @@ document.addEventListener('DOMContentLoaded', () => {
         grid.innerHTML = `
           <div class="no-reviews">
             <div style="font-size: 3rem; margin-bottom: 1rem;">⭐</div>
-            <h3>Sin reseñas aún</h3>
-            <p>¡Sé el primero en dejar una reseña sobre nuestro trabajo!</p>
+            <h3 data-i18n="reviews_empty_title">${t('reviews_empty_title', 'No reviews yet')}</h3>
+            <p data-i18n="reviews_empty_text">${t('reviews_empty_text', 'Be the first to leave a review about our work!')}</p>
           </div>
         `;
+        loadTranslations();
         return;
       }
 
@@ -331,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
       renderMoreReviews();
     } catch (err) {
       console.error('Load reviews error:', err);
-      grid.innerHTML = '<div class="no-reviews">Error al cargar las reseñas.</div>';
+      grid.innerHTML = `<div class="no-reviews">${t('reviews_load_error', 'Failed to load reviews.')}</div>`;
     }
   }
 
@@ -363,7 +392,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (endIdx < reviewsData.length) {
       const btn = document.createElement('button');
       btn.className = 'load-more-btn';
-      btn.textContent = 'Ещё отзывы';
+      btn.setAttribute('data-i18n', 'reviews_load_more');
+      btn.textContent = (translations[currentLanguage] && translations[currentLanguage].reviews_load_more)
+        ? translations[currentLanguage].reviews_load_more
+        : 'More reviews';
       btn.addEventListener('click', renderMoreReviews);
       container.appendChild(btn);
     }
@@ -456,7 +488,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
 
       if (!commentsEnabled) {
-        alert('Reviews are currently disabled.');
+        alert(t('reviews_disabled_alert', 'Reviews are currently disabled.'));
         return;
       }
 
@@ -491,11 +523,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1200);
           }
         } else {
-          alert((json && json.error) ? json.error : 'Error submitting review. Please try again.');
+          alert((json && json.error) ? json.error : t('reviews_submit_error', 'Error submitting review. Please try again.'));
         }
       } catch (err) {
         console.error('Review error:', err);
-        alert('Failed to submit review. Please check your connection.');
+        alert(t('reviews_submit_connection', 'Failed to submit review. Please check your connection.'));
       }
     });
   }
@@ -505,10 +537,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightbox = document.createElement('div');
     lightbox.className = 'gallery-lightbox';
     lightbox.innerHTML = `
-      <button type="button" class="gallery-lightbox-nav gallery-lightbox-prev" aria-label="Previous">‹</button>
-      <button type="button" class="gallery-lightbox-close" aria-label="Close">×</button>
+      <button type="button" class="gallery-lightbox-nav gallery-lightbox-prev" aria-label="${escapeHtml(t('gallery_prev', 'Previous'))}">‹</button>
+      <button type="button" class="gallery-lightbox-close" aria-label="${escapeHtml(t('gallery_close', 'Close'))}">×</button>
       <img src="" alt="Preview" class="gallery-lightbox-image">
-      <button type="button" class="gallery-lightbox-nav gallery-lightbox-next" aria-label="Next">›</button>
+      <button type="button" class="gallery-lightbox-nav gallery-lightbox-next" aria-label="${escapeHtml(t('gallery_next', 'Next'))}">›</button>
     `;
     document.body.appendChild(lightbox);
 
@@ -532,7 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
       currentCardImageIndex = (index + total) % total;
       const imageData = currentCardImages[currentCardImageIndex];
       const nextSrc = imageData.src;
-      const nextAlt = imageData.alt || 'Preview';
+      const nextAlt = imageData.alt || t('gallery_preview_alt', 'Preview');
 
       if (!withTransition) {
         lightboxImg.src = nextSrc;
@@ -560,12 +592,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         currentCardImages = [{
           src: image.src,
-          alt: image.alt || 'Preview'
+          alt: image.alt || t('gallery_preview_alt', 'Preview')
         }];
       } else {
         currentCardImages = selectedCard.images.map((src) => ({
           src,
-          alt: selectedCard.alt || selectedCard.title || 'Preview'
+          alt: selectedCard.alt || selectedCard.title || t('gallery_preview_alt', 'Preview')
         }));
       }
 
