@@ -282,7 +282,7 @@ const translations = {
     step_3_title: 'Ejecución de la obra',
     step_3_desc: 'Procedemos a la ejecución de los trabajos. Nuestro equipo de maestros realiza todas las etapas de construcción y reparación cumpliendo los plazos, estándares de calidad y normas de seguridad.',
     
-    step_4_title: 'Entrega y garantía',
+    step_4_title: 'Entrega de obra',
     step_4_desc: 'Después de la finalización del proyecto realizamos una inspección final, limpieza y entrega del objeto. Proporcionamos garantía en el trabajo realizado y siempre estamos disponibles para mantenimiento y consultas.',
     
     testimonials_label: 'TESTIMONIOS',

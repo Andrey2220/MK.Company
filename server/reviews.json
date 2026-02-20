@@ -3,6 +3,7 @@
     "id": 1771258502282,
     "name": "Alex",
     "email": "alex@example.com",
+    "avatar": "https://randomuser.me/api/portraits/men/41.jpg",
     "rating": 5,
     "text": "Trabajo muy limpio y puntual. Cumplieron todo lo acordado.",
     "date": "2026-02-16T16:15:02.282Z"
@@ -11,6 +12,7 @@
     "id": 1771411327141,
     "name": "Andrés",
     "email": "andres@example.com",
+    "avatar": "https://randomuser.me/api/portraits/men/48.jpg",
     "rating": 4,
     "text": "Buena comunicación y calidad en los acabados. Recomendable.",
     "date": "2026-02-18T10:42:07.141Z"
@@ -19,6 +21,7 @@
     "id": 1771412345937,
     "name": "Maxim",
     "email": "maxim@example.com",
+    "avatar": "https://randomuser.me/api/portraits/men/52.jpg",
     "rating": 5,
     "text": "Сделали ремонт аккуратно и в срок. Очень доволен результатом.",
     "date": "2026-02-18T10:59:05.937Z"
@@ -27,6 +30,7 @@
     "id": 1771498800000,
     "name": "Elena",
     "email": "elena@example.com",
+    "avatar": "https://randomuser.me/api/portraits/women/44.jpg",
     "rating": 5,
     "text": "Excelente servicio, dejaron todo limpio y con garantía.",
     "date": "2026-02-19T10:00:00.000Z"

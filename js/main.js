@@ -95,6 +95,34 @@ document.addEventListener('DOMContentLoaded', () => {
       : fallback;
   }
 
+  function normalizeName(name) {
+    return String(name || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .trim();
+  }
+
+  function getReviewAvatarUrl(review) {
+    if (review && typeof review.avatar === 'string' && review.avatar.trim()) {
+      return review.avatar.trim();
+    }
+
+    const normalized = normalizeName(review && review.name);
+    const femaleNames = new Set(['elena', 'anna', 'maria', 'sofia', 'olga', 'julia', 'julia', 'elena']);
+    const maleNames = new Set(['maxim', 'maksim', 'andres', 'alex', 'alejandro', 'sergey', 'ivan', 'dmitry']);
+
+    if (femaleNames.has(normalized)) {
+      return `https://randomuser.me/api/portraits/women/${(normalized.length % 60) + 10}.jpg`;
+    }
+
+    if (maleNames.has(normalized)) {
+      return `https://randomuser.me/api/portraits/men/${(normalized.length % 60) + 10}.jpg`;
+    }
+
+    return 'https://ui-avatars.com/api/?name=User&background=e5e7eb&color=374151&size=128';
+  }
+
   function renderGalleryItems(items) {
     const galleryGrid = document.getElementById('gallery-grid');
     if (!galleryGrid || !Array.isArray(items) || !items.length) return;
@@ -118,15 +146,24 @@ document.addEventListener('DOMContentLoaded', () => {
       };
     }).filter((item) => !!item.image);
 
-    galleryGrid.innerHTML = galleryItemsData.map((item, index) => `
+    galleryGrid.innerHTML = galleryItemsData.map((item, index) => {
+      const titleKey = `gallery_card_${index + 1}_title`;
+      const descKey = `gallery_card_${index + 1}_desc`;
+      const hasTitleTranslation = !!(translations.en && translations.en[titleKey]);
+      const hasDescTranslation = !!(translations.en && translations.en[descKey]);
+
+      return `
       <div class="gallery-item" data-card-index="${index}">
         <img src="${escapeHtml(item.image || '')}" alt="${escapeHtml(item.alt || '')}" class="gallery-image">
         <div class="gallery-info">
-          <h3>${escapeHtml(item.title || '')}</h3>
-          <p>${escapeHtml(item.description || '')}</p>
+          <h3${hasTitleTranslation ? ` data-i18n="${titleKey}"` : ''}>${escapeHtml(item.title || '')}</h3>
+          <p${hasDescTranslation ? ` data-i18n="${descKey}"` : ''}>${escapeHtml(item.description || '')}</p>
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
+
+    loadTranslations();
   }
 
   async function loadPublicSiteConfig() {
@@ -374,9 +411,9 @@ document.addEventListener('DOMContentLoaded', () => {
       card.className = 'testimonial-card';
       card.innerHTML = `
         <div class="stars">${stars}</div>
-        <p>${escapeHtml(r.text)}</p>
+        <p>${escapeHtml(r.text || '')}</p>
         <div class="testimonial-author">
-          <img src="https://i.pravatar.cc/50?u=${encodeURIComponent(r.email)}" alt="${escapeHtml(r.name)}">
+          <img src="${escapeHtml(getReviewAvatarUrl(r))}" alt="${escapeHtml(r.name)}">
           <div>
             <strong>${escapeHtml(r.name)}</strong>
             <small>${new Date(r.date).toLocaleDateString()}</small>
