@@ -1,5 +1,5 @@
 {
-  "commentsEnabled": false,
+  "commentsEnabled": true,
   "overrides": [
     {
       "selector": "body > main > section:nth-of-type(4) > div:nth-of-type(2) > div:nth-of-type(4) > h3",
