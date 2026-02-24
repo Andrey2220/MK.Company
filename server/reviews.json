@@ -34,5 +34,13 @@
     "rating": 5,
     "text": "Excelente servicio, dejaron todo limpio y con garantía.",
     "date": "2026-02-19T10:00:00.000Z"
+  },
+  {
+    "id": 1771604767494,
+    "name": "SMTP Test Review",
+    "email": "test@example.com",
+    "rating": 5,
+    "text": "SMTP test review message",
+    "date": "2026-02-20T16:26:07.494Z"
   }
 ]
