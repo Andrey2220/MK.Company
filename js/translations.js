@@ -192,6 +192,11 @@ const translations = {
     gallery_card_5_desc: 'Facade cladding and restoration',
     gallery_card_6_title: 'Cleaning and final finishing',
     gallery_card_6_desc: 'Professional cleaning after renovation',
+    
+    cert_section_label: 'ACCREDITED COMPANY',
+    cert_section_title: 'Official Certification',
+    cert_section_text: 'MK.COMPANY is an accredited and licensed construction company. We meet all quality standards and regulatory requirements in the construction and repair industry.',
+    cert_btn: 'View Certificate',
   },
   
   es: {
@@ -387,5 +392,10 @@ const translations = {
     gallery_card_5_desc: 'Revestimiento y restauración de fachadas',
     gallery_card_6_title: 'Limpieza y acabados finales',
     gallery_card_6_desc: 'Limpieza profesional después de la reparación',
+    
+    cert_section_label: 'EMPRESA ACREDITADA',
+    cert_section_title: 'Certificación Oficial',
+    cert_section_text: 'MK.COMPANY es una empresa de construcción acreditada y licenciada. Cumplimos con todos los estándares de calidad y requisitos reglamentarios en la industria de la construcción y reparación.',
+    cert_btn: 'Ver Certificado',
   }
 };

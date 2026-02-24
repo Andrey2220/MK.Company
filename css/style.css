@@ -536,6 +536,51 @@ p {
   font-size: 0.95rem;
 }
 
+/* ========== CERTIFICATION ========== */
+.certification {
+  background: linear-gradient(135deg, #f5f5f5 0%, #efefef 100%);
+  border-radius: 12px;
+  margin: 3rem auto;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+}
+
+.certification h2 {
+  color: var(--text);
+  margin: 1rem 0 2rem;
+  font-size: 2rem;
+}
+
+.cert-content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.cert-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.cert-content p {
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.cert-content .btn {
+  margin-top: 1rem;
+  display: inline-block;
+}
+
 /* ========== TESTIMONIALS ========== */
 .testimonials {
   margin: 3rem auto;

@@ -4,49 +4,113 @@
     {
       "selector": "body > main > section:nth-of-type(3) > section > div:nth-of-type(3) > div:nth-of-type(1) > img",
       "type": "src",
-      "value": "./img/Электрик.jfif"
+      "value": "/img/uploads/1771938151198-eiyu8s.jpg"
     },
     {
       "selector": "body > main > section > div:nth-of-type(2) > div:nth-of-type(1) > img",
       "type": "src",
-      "value": "/img/uploads/1771461523786-y4ik4i.jpg"
+      "value": "/img/uploads/1771939528410-09jskw.jpg"
+    },
+    {
+      "selector": "body > main > section:nth-of-type(3) > section > div:nth-of-type(1) > div:nth-of-type(1) > img",
+      "type": "src",
+      "value": "/img/uploads/1771937926353-wkqdd9.jpg"
+    },
+    {
+      "selector": "body > main > section:nth-of-type(3) > section > div:nth-of-type(2) > div:nth-of-type(1) > img",
+      "type": "src",
+      "value": "/img/uploads/1771938038176-jc84d9.jpg"
+    },
+    {
+      "selector": "body > main > section > div:nth-of-type(1) > div:nth-of-type(1) > img",
+      "type": "src",
+      "value": "/img/uploads/1771938403943-t3e8tz.jpg"
+    },
+    {
+      "selector": "body > main > section > div:nth-of-type(3) > div:nth-of-type(1) > img",
+      "type": "src",
+      "value": "/img/uploads/1771938462454-s22ka2.jpg"
+    },
+    {
+      "selector": "body > main > section > div:nth-of-type(4) > div:nth-of-type(1) > img",
+      "type": "src",
+      "value": "/img/uploads/1771938529797-vg8590.jpg"
+    },
+    {
+      "selector": "body > main > section > div:nth-of-type(5) > div:nth-of-type(1) > img",
+      "type": "src",
+      "value": "/img/uploads/1771938558768-7j5jzm.jpg"
+    },
+    {
+      "selector": "body > main > section > div:nth-of-type(6) > div:nth-of-type(1) > img",
+      "type": "src",
+      "value": "/img/uploads/1771938609280-6mwqz3.jpg"
+    },
+    {
+      "selector": "body > main > section > div:nth-of-type(2) > div:nth-of-type(2) > img",
+      "type": "src",
+      "value": "/img/uploads/1771939577040-b24p8f.jpg"
+    },
+    {
+      "selector": "body > main > section > div:nth-of-type(2) > div:nth-of-type(3) > img",
+      "type": "src",
+      "value": "/img/uploads/1771939692774-ey6bam.jpg"
+    },
+    {
+      "selector": "body > main > section > div:nth-of-type(2) > div:nth-of-type(4) > img",
+      "type": "src",
+      "value": "/img/uploads/1771939736868-4blyi6.jpg"
+    },
+    {
+      "selector": "body > main > section > div:nth-of-type(2) > div:nth-of-type(6) > img",
+      "type": "src",
+      "value": "/img/uploads/1771939783118-gsjla5.jpg"
     }
   ],
   "galleryItems": [
     {
-      "image": "img/ремонты.jpeg",
+      "image": "/img/uploads/1771940617851-38riph.jpg",
       "images": [
-        "img/ремонты.jpeg"
+        "/img/uploads/1771940617851-38riph.jpg"
       ],
       "alt": "Reparación de apartamentos",
       "title": "Reparación capitular de apartamentos",
       "description": "Reparación integral desde cero"
     },
     {
-      "image": "img/стройка.jfif",
+      "image": "/img/uploads/1771939874450-fjiy2x.jpg",
       "images": [
-        "img/стройка.jfif",
-        "/img/uploads/1771460626194-jmxvmw.jpg",
-        "/img/uploads/1771460646309-rc0kvd.jpg",
-        "/img/uploads/1771460661367-nkr8u6.jpg"
+        "/img/uploads/1771939874450-fjiy2x.jpg",
+        "/img/uploads/1771939938716-mss8id.mp4",
+        "/img/uploads/1771939952933-y3pdti.jpg",
+        "/img/uploads/1771939961898-srs4r4.jpg",
+        "/img/uploads/1771939981477-fy1h5j.jpg"
       ],
       "alt": "Construcción de casas",
       "title": "Construcción de cabaña",
       "description": "Construcción de casas según proyecto individual"
     },
     {
-      "image": "img/Электрик.jfif",
+      "image": "/img/uploads/1771940027547-03cf1c.jpg",
       "images": [
-        "img/Электрик.jfif"
+        "/img/uploads/1771940027547-03cf1c.jpg",
+        "/img/uploads/1771940126539-l0gbdl.jpg",
+        "/img/uploads/1771940167746-tmuwo0.jpg"
       ],
       "alt": "Instalación eléctrica",
       "title": "Trabajos de instalación eléctrica",
       "description": "Instalación y modernización del cableado eléctrico"
     },
     {
-      "image": "img/сантехник.jfif",
+      "image": "/img/uploads/1771940219601-t1fp94.jpg",
       "images": [
-        "img/сантехник.jfif"
+        "/img/uploads/1771940219601-t1fp94.jpg",
+        "/img/uploads/1771940228902-gbs40s.jpg",
+        "/img/uploads/1771940236349-cioora.jpg",
+        "/img/uploads/1771940254055-iv8s7c.jpg",
+        "/img/uploads/1771940284572-cubyi9.jpg",
+        "/img/uploads/1771940363238-yl1gm6.jpg",
+        "/img/uploads/1771940376246-sgmps0.jpg"
       ],
       "alt": "Trabajos de fontanería",
       "title": "Trabajos de fontanería",
@@ -56,17 +120,22 @@
       "image": "/img/uploads/1771460752021-1tw2lw.jpg",
       "images": [
         "/img/uploads/1771460752021-1tw2lw.jpg",
-        "/img/uploads/1771460682507-d699h9.jpg",
-        "/img/uploads/1771460690340-5iz6mg.jpg"
+        "/img/uploads/1771940321931-qvb8b2.jpg",
+        "/img/uploads/1771940331454-gnxegv.jpg",
+        "/img/uploads/1771940350747-0pmrml.jpg"
       ],
       "alt": "Trabajos de fachada",
       "title": "Trabajos de fachada",
       "description": "Revestimiento y restauración de fachadas"
     },
     {
-      "image": "img/Уборка.jfif",
+      "image": "/img/uploads/1771940417809-zmfbpk.jpg",
       "images": [
-        "img/Уборка.jfif"
+        "/img/uploads/1771940417809-zmfbpk.jpg",
+        "/img/uploads/1771940429429-9kxehb.jpg",
+        "/img/uploads/1771940438085-iltvr9.jpg",
+        "/img/uploads/1771940458089-3b9f3h.jpg",
+        "/img/uploads/1771940501472-5dod8t.jpg"
       ],
       "alt": "Limpieza después de la reparación",
       "title": "Limpieza y acabados finales",
