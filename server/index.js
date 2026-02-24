@@ -13,6 +13,17 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..')));
 
+function setNoCacheHeaders(req, res, next) {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.set('Pragma', 'no-cache');
+  res.set('Expires', '0');
+  next();
+}
+
+app.use('/api/public', setNoCacheHeaders);
+app.use('/api/admin', setNoCacheHeaders);
+app.use('/api/reviews', setNoCacheHeaders);
+
 const reviewsFile = path.join(__dirname, 'reviews.json');
 const siteConfigFile = path.join(__dirname, 'site-config.json');
 const uploadsDir = path.join(__dirname, '..', 'img', 'uploads');

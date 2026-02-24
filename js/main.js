@@ -168,10 +168,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function loadPublicSiteConfig() {
     try {
+      const cacheBust = Date.now();
       const [configRes, overridesRes, galleryRes] = await Promise.all([
-        fetch('/api/public/config'),
-        fetch('/api/public/overrides'),
-        fetch('/api/public/gallery')
+        fetch(`/api/public/config?ts=${cacheBust}`, { cache: 'no-store' }),
+        fetch(`/api/public/overrides?ts=${cacheBust}`, { cache: 'no-store' }),
+        fetch(`/api/public/gallery?ts=${cacheBust}`, { cache: 'no-store' })
       ]);
 
       if (configRes.ok) {
@@ -376,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
     grid.innerHTML = `<div class="testimonial-loading">${t('reviews_loading', 'Loading reviews...')}</div>`;
     displayedCount = 0;
     try {
-      const res = await fetch('/api/reviews');
+      const res = await fetch(`/api/reviews?ts=${Date.now()}`, { cache: 'no-store' });
       const json = await res.json();
       if (!res.ok || !json.ok) throw new Error(json && json.error ? json.error : 'Failed to load');
 
