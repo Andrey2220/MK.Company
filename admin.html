@@ -27,6 +27,7 @@
       <div class="admin-tabs" role="tablist" aria-label="Admin sections">
         <button class="admin-tab-btn active" data-tab="editor" type="button">Редактор сайта</button>
         <button class="admin-tab-btn" data-tab="gallery" type="button">Галерея</button>
+        <button class="admin-tab-btn" data-tab="reviews" type="button">Отзывы</button>
         <button class="admin-tab-btn" data-tab="settings" type="button">Настройки</button>
       </div>
 
@@ -113,12 +114,36 @@
         <div id="admin-gallery-status" class="admin-status" hidden></div>
       </div>
 
+      <div class="admin-tab-panel" data-panel="reviews" hidden>
+        <h3>Отзывы: создать и редактировать</h3>
+        <p class="admin-hint">Добавляйте новые отзывы, правьте существующие и сохраняйте весь список.</p>
+        <div id="admin-reviews-list" class="admin-gallery-list"></div>
+        <p>
+          <button class="btn" id="admin-reviews-add-btn">+ Добавить отзыв</button>
+          <button class="btn btn-accent" id="admin-reviews-save-btn">Сохранить отзывы</button>
+        </p>
+        <div id="admin-reviews-status" class="admin-status" hidden></div>
+      </div>
+
       <div class="admin-tab-panel" data-panel="settings" hidden>
         <h3>Настройки сайта</h3>
         <label class="admin-toggle">
           <input type="checkbox" id="comments-enabled">
           <span>Разрешить пользователям оставлять отзывы</span>
         </label>
+
+        <h4 style="margin-top: 1.5rem;">Логотип сайта</h4>
+        <div class="admin-upload-row">
+          <input type="file" id="logo-file" accept="image/*">
+          <button class="btn" id="upload-logo-btn" type="button">Загрузить лого</button>
+        </div>
+        <label>
+          <span>Путь нового логотипа</span>
+          <input type="text" id="uploaded-logo-path" readonly placeholder="После загрузки появится путь">
+        </label>
+        <p><button class="btn" id="apply-logo-btn" type="button">Применить лого на всех страницах</button></p>
+        <div id="logo-status" class="admin-status" hidden></div>
+
         <p><button class="btn btn-accent" id="save-config-btn">Сохранить настройки</button></p>
         <div id="admin-config-status" class="admin-status" hidden></div>
       </div>

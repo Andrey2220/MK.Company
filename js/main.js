@@ -11,6 +11,14 @@ function getTranslation(key) {
   return activeDict[key] || fallbackDict[key] || null;
 }
 
+function getLanguageCode(lang) {
+  const normalized = String(lang || '').toLowerCase();
+  if (normalized === 'ru') return 'RU';
+  if (normalized === 'uk') return 'UK';
+  if (normalized === 'en') return 'EN';
+  return 'ES';
+}
+
 function loadTranslations() {
   // Update all elements with data-i18n attribute
   document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -80,7 +88,7 @@ function setLanguage(lang) {
     // Update trigger button text
     const trigger = document.getElementById('lang-trigger');
     if (trigger) {
-      const code = lang === 'ru' ? 'RU' : (lang === 'en' ? 'EN' : 'ES');
+      const code = getLanguageCode(lang);
       trigger.textContent = code + ' \u25bc';
     }
     
@@ -264,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Set initial language button text
   const langTrigger = document.getElementById('lang-trigger');
   if (langTrigger) {
-    const initialCode = currentLanguage === 'ru' ? 'RU' : (currentLanguage === 'en' ? 'EN' : 'ES');
+    const initialCode = getLanguageCode(currentLanguage);
     langTrigger.textContent = initialCode + ' \u25bc';
   }
   

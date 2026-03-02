@@ -12,6 +12,11 @@ const tabPanels = Array.from(document.querySelectorAll('.admin-tab-panel'));
 const commentsEnabled = document.getElementById('comments-enabled');
 const saveConfigBtn = document.getElementById('save-config-btn');
 const configStatus = document.getElementById('admin-config-status');
+const logoFileInput = document.getElementById('logo-file');
+const uploadLogoBtn = document.getElementById('upload-logo-btn');
+const uploadedLogoPathInput = document.getElementById('uploaded-logo-path');
+const applyLogoBtn = document.getElementById('apply-logo-btn');
+const logoStatus = document.getElementById('logo-status');
 
 const uploadInput = document.getElementById('image-file');
 const uploadBtn = document.getElementById('upload-image-btn');
@@ -24,6 +29,11 @@ const adminGalleryAddBtn = document.getElementById('admin-gallery-add-btn');
 const adminGallerySaveBtn = document.getElementById('admin-gallery-save-btn');
 const adminGalleryStatus = document.getElementById('admin-gallery-status');
 const galleryAutoTranslate = document.getElementById('gallery-auto-translate');
+
+const adminReviewsList = document.getElementById('admin-reviews-list');
+const adminReviewsAddBtn = document.getElementById('admin-reviews-add-btn');
+const adminReviewsSaveBtn = document.getElementById('admin-reviews-save-btn');
+const adminReviewsStatus = document.getElementById('admin-reviews-status');
 
 const visualPageSelect = document.getElementById('visual-page-select');
 const visualLoadBtn = document.getElementById('visual-load-btn');
@@ -41,6 +51,7 @@ let visualSelectedInputHandler = null;
 let visualFrameDoc = null;
 let currentOverrides = [];
 let currentGalleryItems = [];
+let currentReviews = [];
 let autosaveTimer = null;
 let draggedGalleryItem = null;
 
@@ -79,9 +90,18 @@ function upsertOverride(selector, type, value, translations = null) {
   }
 }
 
+function findLogoOverridePath() {
+  const logoOverride = currentOverrides.find((item) => item && item.type === 'src' && item.selector === '.brand img.logo');
+  return logoOverride && typeof logoOverride.value === 'string' ? logoOverride.value : '';
+}
+
 function detectInputLanguage(text) {
   const value = String(text || '').trim();
   if (!value) return 'ru';
+
+  if (/[ІіЇїЄєҐґ]/.test(value)) {
+    return 'uk';
+  }
 
   if (/[А-Яа-яЁё]/.test(value)) {
     return 'ru';
@@ -96,7 +116,7 @@ function detectInputLanguage(text) {
 
 async function translateAdminText(text) {
   const source = detectInputLanguage(text);
-  const targets = ['ru', 'en', 'es'].filter((lang) => lang !== source);
+  const targets = ['ru', 'en', 'es', 'uk'].filter((lang) => lang !== source);
 
   const res = await adminFetch('/api/admin/translate', {
     method: 'POST',
@@ -343,6 +363,126 @@ function clearGalleryDropMarkers() {
   });
 }
 
+function createReviewRow(item = {}) {
+  if (!adminReviewsList) return null;
+
+  const row = document.createElement('div');
+  row.className = 'admin-gallery-item';
+  row.innerHTML = `
+    <div class="admin-gallery-item-grid">
+      <label>
+        <span>Имя</span>
+        <input type="text" class="review-name" value="${String(item.name || '').replaceAll('"', '&quot;')}">
+      </label>
+      <label>
+        <span>Email</span>
+        <input type="email" class="review-email" value="${String(item.email || '').replaceAll('"', '&quot;')}">
+      </label>
+      <label>
+        <span>Оценка (1-5)</span>
+        <input type="number" class="review-rating" min="1" max="5" value="${Number(item.rating) || 5}">
+      </label>
+      <label class="admin-gallery-full">
+        <span>Текст отзыва</span>
+        <textarea class="review-text" rows="4">${String(item.text || '').replaceAll('<', '&lt;').replaceAll('>', '&gt;')}</textarea>
+      </label>
+      <label class="admin-gallery-full">
+        <span>Ссылка на аватар (необязательно)</span>
+        <input type="text" class="review-avatar" value="${String(item.avatar || '').replaceAll('"', '&quot;')}">
+      </label>
+      <label>
+        <span>Дата (ISO)</span>
+        <input type="text" class="review-date" value="${String(item.date || '').replaceAll('"', '&quot;')}">
+      </label>
+      <div class="admin-gallery-full">
+        <div class="admin-gallery-actions">
+          <button type="button" class="btn review-remove-btn">Удалить</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const removeBtn = row.querySelector('.review-remove-btn');
+  removeBtn.addEventListener('click', () => row.remove());
+
+  adminReviewsList.appendChild(row);
+  return row;
+}
+
+function renderReviewsEditor() {
+  if (!adminReviewsList) return;
+  adminReviewsList.innerHTML = '';
+
+  if (!currentReviews.length) {
+    createReviewRow({
+      name: '',
+      email: '',
+      rating: 5,
+      text: '',
+      avatar: '',
+      date: new Date().toISOString()
+    });
+    return;
+  }
+
+  currentReviews.forEach((item) => createReviewRow(item));
+}
+
+function collectReviews() {
+  if (!adminReviewsList) return [];
+
+  const rows = Array.from(adminReviewsList.querySelectorAll('.admin-gallery-item'));
+  return rows
+    .map((row) => {
+      const parsedRating = Number(row.querySelector('.review-rating')?.value);
+      const rating = Number.isFinite(parsedRating) ? Math.min(5, Math.max(1, Math.round(parsedRating))) : 5;
+      return {
+        name: row.querySelector('.review-name')?.value.trim() || '',
+        email: row.querySelector('.review-email')?.value.trim() || '',
+        rating,
+        text: row.querySelector('.review-text')?.value.trim() || '',
+        avatar: row.querySelector('.review-avatar')?.value.trim() || '',
+        date: row.querySelector('.review-date')?.value.trim() || new Date().toISOString()
+      };
+    })
+    .filter((item) => item.name && item.email && item.text);
+}
+
+async function loadReviewsConfig() {
+  hideStatus(adminReviewsStatus);
+
+  const res = await adminFetch('/api/admin/reviews');
+  const json = await res.json();
+
+  if (!res.ok || !json.ok) {
+    throw new Error((json && json.error) || 'Ошибка загрузки отзывов');
+  }
+
+  currentReviews = Array.isArray(json.reviews) ? [...json.reviews] : [];
+  renderReviewsEditor();
+}
+
+async function saveReviews() {
+  hideStatus(adminReviewsStatus);
+
+  const reviews = collectReviews();
+  const res = await adminFetch('/api/admin/reviews', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ reviews })
+  });
+  const json = await res.json();
+
+  if (!res.ok || !json.ok) {
+    setStatus(adminReviewsStatus, (json && json.error) || 'Не удалось сохранить отзывы', true);
+    return;
+  }
+
+  currentReviews = Array.isArray(json.reviews) ? [...json.reviews] : reviews;
+  renderReviewsEditor();
+  setStatus(adminReviewsStatus, `Отзывы сохранены: ${currentReviews.length}`);
+}
+
 function renderGalleryEditor() {
   if (!adminGalleryList) return;
   adminGalleryList.innerHTML = '';
@@ -413,7 +553,8 @@ async function collectGalleryItems() {
       item.titleTranslations = {
         ru: translatedTitle.ru || title,
         en: translatedTitle.en || title,
-        es: translatedTitle.es || title
+        es: translatedTitle.es || title,
+        uk: translatedTitle.uk || title
       };
     }
 
@@ -422,7 +563,8 @@ async function collectGalleryItems() {
       item.descriptionTranslations = {
         ru: translatedDescription.ru || description,
         en: translatedDescription.en || description,
-        es: translatedDescription.es || description
+        es: translatedDescription.es || description,
+        uk: translatedDescription.uk || description
       };
     }
   }
@@ -451,7 +593,40 @@ async function loadConfig() {
   commentsEnabled.checked = !!json.config.commentsEnabled;
   currentOverrides = Array.isArray(json.config.overrides) ? [...json.config.overrides] : [];
   currentGalleryItems = Array.isArray(json.config.galleryItems) ? [...json.config.galleryItems] : [];
+  if (uploadedLogoPathInput) {
+    uploadedLogoPathInput.value = findLogoOverridePath();
+  }
   renderGalleryEditor();
+  await loadReviewsConfig();
+}
+
+async function uploadLogo() {
+  hideStatus(logoStatus);
+
+  const uploadedPath = await uploadSelectedFile(logoFileInput && logoFileInput.files && logoFileInput.files[0], logoStatus);
+  if (!uploadedPath) return;
+
+  if (uploadedLogoPathInput) {
+    uploadedLogoPathInput.value = uploadedPath;
+  }
+
+  setStatus(logoStatus, `Логотип загружен: ${uploadedPath}`);
+}
+
+async function applyLogo() {
+  hideStatus(logoStatus);
+
+  const logoPath = uploadedLogoPathInput ? uploadedLogoPathInput.value.trim() : '';
+  if (!logoPath) {
+    setStatus(logoStatus, 'Сначала загрузите логотип', true);
+    return;
+  }
+
+  upsertOverride('.brand img.logo', 'src', logoPath);
+  const saved = await saveOverrides(logoStatus);
+  if (saved) {
+    setStatus(logoStatus, 'Логотип применён ко всем страницам');
+  }
 }
 
 async function login() {
@@ -786,6 +961,18 @@ if (adminGalleryAddBtn) {
 }
 if (adminGallerySaveBtn) {
   adminGallerySaveBtn.addEventListener('click', saveGalleryItems);
+}
+if (adminReviewsAddBtn) {
+  adminReviewsAddBtn.addEventListener('click', () => createReviewRow({ date: new Date().toISOString(), rating: 5 }));
+}
+if (adminReviewsSaveBtn) {
+  adminReviewsSaveBtn.addEventListener('click', saveReviews);
+}
+if (uploadLogoBtn) {
+  uploadLogoBtn.addEventListener('click', uploadLogo);
+}
+if (applyLogoBtn) {
+  applyLogoBtn.addEventListener('click', applyLogo);
 }
 if (visualSelectedType) {
   visualSelectedType.addEventListener('change', () => {

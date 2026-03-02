@@ -96,7 +96,7 @@ function normalizeGalleryItems(items) {
   const normalizeLangMap = (value) => {
     if (!value || typeof value !== 'object') return null;
     const map = {};
-    ['ru', 'en', 'es'].forEach((lang) => {
+    ['ru', 'en', 'es', 'uk'].forEach((lang) => {
       if (typeof value[lang] === 'string' && value[lang].trim()) {
         map[lang] = value[lang].trim();
       }
@@ -141,6 +141,30 @@ function normalizeGalleryItems(items) {
       return normalizedItem;
     })
     .filter((item) => item.image);
+}
+
+function normalizeReviews(items) {
+  if (!Array.isArray(items)) return [];
+
+  return items
+    .filter((item) => item && typeof item === 'object')
+    .map((item) => {
+      const parsedRating = Number(item.rating);
+      const rating = Number.isFinite(parsedRating)
+        ? Math.min(5, Math.max(1, Math.round(parsedRating)))
+        : 5;
+
+      return {
+        id: typeof item.id === 'number' ? item.id : Date.now() + Math.floor(Math.random() * 100000),
+        name: typeof item.name === 'string' ? item.name.trim() : '',
+        email: typeof item.email === 'string' ? item.email.trim() : '',
+        rating,
+        text: typeof item.text === 'string' ? item.text.trim() : '',
+        avatar: typeof item.avatar === 'string' ? item.avatar.trim() : '',
+        date: typeof item.date === 'string' && item.date.trim() ? item.date.trim() : new Date().toISOString()
+      };
+    })
+    .filter((item) => item.name && item.email && item.text);
 }
 
 function getSiteConfig() {
@@ -435,8 +459,8 @@ app.post('/api/admin/translate', requireAdmin, async (req, res) => {
   const { text, source, targets } = req.body || {};
   const sourceLang = typeof source === 'string' ? source.toLowerCase() : 'ru';
   const textValue = typeof text === 'string' ? text.trim() : '';
-  const targetLangs = Array.isArray(targets) ? targets : ['en', 'es'];
-  const allowedLangs = new Set(['ru', 'en', 'es']);
+  const targetLangs = Array.isArray(targets) ? targets : ['en', 'es', 'uk'];
+  const allowedLangs = new Set(['ru', 'en', 'es', 'uk']);
 
   if (!textValue) {
     return res.status(400).json({ ok: false, error: 'Text is required' });
@@ -457,11 +481,12 @@ app.post('/api/admin/translate', requireAdmin, async (req, res) => {
 
   if (fixedTranslation) {
     normalizedTargets.forEach((lang) => {
-      translations[lang] = fixedTranslation[lang] || textValue;
+      translations[lang] = fixedTranslation[lang] || fixedTranslation.ru || fixedTranslation.en || textValue;
     });
     if (!translations.en) translations.en = fixedTranslation.en || textValue;
     if (!translations.es) translations.es = fixedTranslation.es || textValue;
     if (!translations.ru) translations.ru = fixedTranslation.ru || textValue;
+    if (!translations.uk) translations.uk = fixedTranslation.uk || fixedTranslation.ru || textValue;
     return res.json({ ok: true, translations });
   }
 
@@ -477,6 +502,7 @@ app.post('/api/admin/translate', requireAdmin, async (req, res) => {
   if (!translations.en) translations.en = textValue;
   if (!translations.es) translations.es = textValue;
   if (!translations.ru) translations.ru = textValue;
+  if (!translations.uk) translations.uk = textValue;
 
   res.json({ ok: true, translations });
 });
@@ -509,6 +535,17 @@ app.get('/api/admin/config', requireAdmin, (req, res) => {
   res.json({ ok: true, config });
 });
 
+app.get('/api/admin/reviews', requireAdmin, (req, res) => {
+  const reviews = normalizeReviews(readJsonFile(reviewsFile, []));
+  res.json({ ok: true, reviews });
+});
+
+app.put('/api/admin/reviews', requireAdmin, (req, res) => {
+  const reviews = normalizeReviews(req.body && req.body.reviews);
+  writeJsonFile(reviewsFile, reviews);
+  res.json({ ok: true, reviews });
+});
+
 app.put('/api/admin/config', requireAdmin, (req, res) => {
   const current = getSiteConfig();
   const commentsEnabled = !!(req.body && req.body.commentsEnabled);
@@ -535,7 +572,7 @@ app.put('/api/admin/overrides', requireAdmin, (req, res) => {
 
           if (item.translations && typeof item.translations === 'object') {
             const translationMap = {};
-            ['ru', 'en', 'es'].forEach((lang) => {
+            ['ru', 'en', 'es', 'uk'].forEach((lang) => {
               if (typeof item.translations[lang] === 'string') {
                 translationMap[lang] = item.translations[lang];
               }
