@@ -29,6 +29,7 @@ const visualLoadBtn = document.getElementById('visual-load-btn');
 const visualFrame = document.getElementById('visual-editor-frame');
 const visualSelectedSelector = document.getElementById('visual-selected-selector');
 const visualSelectedType = document.getElementById('visual-selected-type');
+const visualAutoTranslate = document.getElementById('visual-auto-translate');
 const visualSelectedValue = document.getElementById('visual-selected-value');
 const visualSaveSelectedBtn = document.getElementById('visual-save-selected-btn');
 const visualStatus = document.getElementById('visual-status');
@@ -60,17 +61,40 @@ function hideStatus(element) {
   element.classList.remove('error');
 }
 
-function upsertOverride(selector, type, value) {
+function upsertOverride(selector, type, value, translations = null) {
   if (!selector) return;
 
   const existingIndex = currentOverrides.findIndex((item) => item.selector === selector);
   const payload = { selector, type, value };
+
+  if (translations && typeof translations === 'object') {
+    payload.translations = translations;
+  }
 
   if (existingIndex === -1) {
     currentOverrides.push(payload);
   } else {
     currentOverrides[existingIndex] = payload;
   }
+}
+
+async function translateAdminText(text) {
+  const res = await adminFetch('/api/admin/translate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      text,
+      source: 'ru',
+      targets: ['en', 'es']
+    })
+  });
+
+  const json = await res.json();
+  if (!res.ok || !json.ok || !json.translations) {
+    throw new Error((json && json.error) || 'Ошибка автоперевода');
+  }
+
+  return json.translations;
 }
 
 function activateTab(tabName) {
@@ -592,6 +616,7 @@ async function saveSelectedVisualElement() {
   const selector = visualSelectedSelector.value.trim();
   const type = visualSelectedType.value;
   let value = visualSelectedValue.value;
+  let translations = null;
 
   if (type === 'src') {
     visualSelectedNode.setAttribute('src', value);
@@ -604,10 +629,24 @@ async function saveSelectedVisualElement() {
     value = visualSelectedNode.textContent || '';
   }
 
-  upsertOverride(selector, type, value);
+  if ((type === 'text' || type === 'html') && visualAutoTranslate && visualAutoTranslate.checked && value.trim()) {
+    try {
+      setStatus(visualStatus, 'Перевожу текст на EN/ES...');
+      translations = await translateAdminText(value.trim());
+    } catch (error) {
+      setStatus(visualStatus, `Автоперевод недоступен: ${error.message}`, true);
+      return;
+    }
+  }
+
+  upsertOverride(selector, type, value, translations);
   const saved = await saveOverrides(visualStatus);
   if (saved) {
-    setStatus(visualStatus, 'Изменение применено и сохранено');
+    if (translations) {
+      setStatus(visualStatus, 'Изменение сохранено и переведено на EN/ES');
+    } else {
+      setStatus(visualStatus, 'Изменение применено и сохранено');
+    }
   }
 }
 

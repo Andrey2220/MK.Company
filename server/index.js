@@ -169,6 +169,79 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+async function translateTextViaGoogle(text, source, target) {
+  const params = new URLSearchParams({
+    client: 'gtx',
+    sl: source,
+    tl: target,
+    dt: 't',
+    q: text
+  });
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000);
+
+  try {
+    const res = await fetch(`https://translate.googleapis.com/translate_a/single?${params.toString()}`, {
+      method: 'GET',
+      signal: controller.signal
+    });
+
+    if (!res.ok) {
+      throw new Error(`Translate HTTP ${res.status}`);
+    }
+
+    const data = await res.json();
+    if (!Array.isArray(data) || !Array.isArray(data[0])) {
+      throw new Error('Invalid translation response');
+    }
+
+    return data[0]
+      .map((chunk) => Array.isArray(chunk) ? (chunk[0] || '') : '')
+      .join('')
+      .trim();
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+app.post('/api/admin/translate', requireAdmin, async (req, res) => {
+  const { text, source, targets } = req.body || {};
+  const sourceLang = typeof source === 'string' ? source.toLowerCase() : 'ru';
+  const textValue = typeof text === 'string' ? text.trim() : '';
+  const targetLangs = Array.isArray(targets) ? targets : ['en', 'es'];
+  const allowedLangs = new Set(['ru', 'en', 'es']);
+
+  if (!textValue) {
+    return res.status(400).json({ ok: false, error: 'Text is required' });
+  }
+
+  if (!allowedLangs.has(sourceLang)) {
+    return res.status(400).json({ ok: false, error: 'Unsupported source language' });
+  }
+
+  const normalizedTargets = targetLangs
+    .map((lang) => (typeof lang === 'string' ? lang.toLowerCase() : ''))
+    .filter((lang) => allowedLangs.has(lang) && lang !== sourceLang);
+
+  const translations = { [sourceLang]: textValue };
+
+  try {
+    for (const targetLang of normalizedTargets) {
+      const translated = await translateTextViaGoogle(textValue, sourceLang, targetLang);
+      translations[targetLang] = translated || textValue;
+    }
+  } catch (error) {
+    return res.status(502).json({ ok: false, error: 'Translation service unavailable' });
+  }
+
+  if (!translations.en) translations.en = textValue;
+  if (!translations.es) translations.es = textValue;
+  if (!translations.ru) translations.ru = textValue;
+
+  res.json({ ok: true, translations });
+});
+
 app.post('/api/admin/login', (req, res) => {
   const { password } = req.body || {};
   if (!password || password !== adminPassword) {
@@ -214,11 +287,28 @@ app.put('/api/admin/overrides', requireAdmin, (req, res) => {
   const overrides = Array.isArray(req.body && req.body.overrides)
     ? req.body.overrides
         .filter((item) => item && typeof item.selector === 'string' && typeof item.type === 'string')
-        .map((item) => ({
-          selector: item.selector.trim(),
-          type: item.type,
-          value: typeof item.value === 'string' ? item.value : ''
-        }))
+        .map((item) => {
+          const safeItem = {
+            selector: item.selector.trim(),
+            type: item.type,
+            value: typeof item.value === 'string' ? item.value : ''
+          };
+
+          if (item.translations && typeof item.translations === 'object') {
+            const translationMap = {};
+            ['ru', 'en', 'es'].forEach((lang) => {
+              if (typeof item.translations[lang] === 'string') {
+                translationMap[lang] = item.translations[lang];
+              }
+            });
+
+            if (Object.keys(translationMap).length) {
+              safeItem.translations = translationMap;
+            }
+          }
+
+          return safeItem;
+        })
         .filter((item) => item.selector)
     : [];
 

@@ -216,13 +216,17 @@ document.addEventListener('DOMContentLoaded', () => {
     overrides.forEach((override) => {
       if (!override || !override.selector || !override.type) return;
 
+      const localizedValue = (override.translations && typeof override.translations === 'object')
+        ? (override.translations[currentLanguage] || override.translations.en || override.value || '')
+        : (override.value || '');
+
       try {
         const elements = document.querySelectorAll(override.selector);
         elements.forEach((element) => {
           if (override.type === 'text') {
-            element.textContent = override.value || '';
+            element.textContent = localizedValue;
           } else if (override.type === 'html') {
-            element.innerHTML = override.value || '';
+            element.innerHTML = localizedValue;
           } else if (override.type === 'src' && 'src' in element) {
             element.src = override.value || '';
           }
