@@ -175,6 +175,208 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 }
 });
 
+const fixedPhraseTranslations = {
+  'reparacion capitular de apartamentos': {
+    ru: 'Капитальный ремонт квартиры',
+    en: 'Apartment capital renovation',
+    es: 'Reparación capitular de apartamentos'
+  },
+  'apartment capital renovation': {
+    ru: 'Капитальный ремонт квартиры',
+    en: 'Apartment capital renovation',
+    es: 'Reparación capitular de apartamentos'
+  },
+  'капитальный ремонт квартиры': {
+    ru: 'Капитальный ремонт квартиры',
+    en: 'Apartment capital renovation',
+    es: 'Reparación capitular de apartamentos'
+  },
+
+  'construccion de cabana': {
+    ru: 'Строительство коттеджа',
+    en: 'Cottage construction',
+    es: 'Construcción de cabaña'
+  },
+  'cottage construction': {
+    ru: 'Строительство коттеджа',
+    en: 'Cottage construction',
+    es: 'Construcción de cabaña'
+  },
+  'строительство коттеджа': {
+    ru: 'Строительство коттеджа',
+    en: 'Cottage construction',
+    es: 'Construcción de cabaña'
+  },
+
+  'trabajos de instalacion electrica': {
+    ru: 'Электромонтажные работы',
+    en: 'Electrical installation works',
+    es: 'Trabajos de instalación eléctrica'
+  },
+  'electrical installation works': {
+    ru: 'Электромонтажные работы',
+    en: 'Electrical installation works',
+    es: 'Trabajos de instalación eléctrica'
+  },
+  'электромонтажные работы': {
+    ru: 'Электромонтажные работы',
+    en: 'Electrical installation works',
+    es: 'Trabajos de instalación eléctrica'
+  },
+
+  'trabajos de fontaneria': {
+    ru: 'Сантехнические работы',
+    en: 'Plumbing works',
+    es: 'Trabajos de fontanería'
+  },
+  'plumbing works': {
+    ru: 'Сантехнические работы',
+    en: 'Plumbing works',
+    es: 'Trabajos de fontanería'
+  },
+  'сантехнические работы': {
+    ru: 'Сантехнические работы',
+    en: 'Plumbing works',
+    es: 'Trabajos de fontanería'
+  },
+
+  'trabajos de fachada': {
+    ru: 'Фасадные работы',
+    en: 'Facade works',
+    es: 'Trabajos de fachada'
+  },
+  'facade works': {
+    ru: 'Фасадные работы',
+    en: 'Facade works',
+    es: 'Trabajos de fachada'
+  },
+  'фасадные работы': {
+    ru: 'Фасадные работы',
+    en: 'Facade works',
+    es: 'Trabajos de fachada'
+  },
+
+  'limpieza y acabados finales': {
+    ru: 'Уборка и финальная отделка',
+    en: 'Cleaning and final finishing',
+    es: 'Limpieza y acabados finales'
+  },
+  'cleaning and final finishing': {
+    ru: 'Уборка и финальная отделка',
+    en: 'Cleaning and final finishing',
+    es: 'Limpieza y acabados finales'
+  },
+  'уборка и финальная отделка': {
+    ru: 'Уборка и финальная отделка',
+    en: 'Cleaning and final finishing',
+    es: 'Limpieza y acabados finales'
+  },
+
+  'reparacion integral desde cero': {
+    ru: 'Комплексный ремонт с нуля',
+    en: 'Comprehensive renovation from scratch',
+    es: 'Reparación integral desde cero'
+  },
+  'comprehensive renovation from scratch': {
+    ru: 'Комплексный ремонт с нуля',
+    en: 'Comprehensive renovation from scratch',
+    es: 'Reparación integral desde cero'
+  },
+  'комплексный ремонт с нуля': {
+    ru: 'Комплексный ремонт с нуля',
+    en: 'Comprehensive renovation from scratch',
+    es: 'Reparación integral desde cero'
+  },
+
+  'construccion de casas segun proyecto individual': {
+    ru: 'Строительство дома по индивидуальному проекту',
+    en: 'House construction according to individual project',
+    es: 'Construcción de casas según proyecto individual'
+  },
+  'house construction according to individual project': {
+    ru: 'Строительство дома по индивидуальному проекту',
+    en: 'House construction according to individual project',
+    es: 'Construcción de casas según proyecto individual'
+  },
+  'строительство дома по индивидуальному проекту': {
+    ru: 'Строительство дома по индивидуальному проекту',
+    en: 'House construction according to individual project',
+    es: 'Construcción de casas según proyecto individual'
+  },
+
+  'instalacion y modernizacion del cableado electrico': {
+    ru: 'Монтаж и модернизация электропроводки',
+    en: 'Installation and modernization of electrical wiring',
+    es: 'Instalación y modernización del cableado eléctrico'
+  },
+  'installation and modernization of electrical wiring': {
+    ru: 'Монтаж и модернизация электропроводки',
+    en: 'Installation and modernization of electrical wiring',
+    es: 'Instalación y modernización del cableado eléctrico'
+  },
+  'монтаж и модернизация электропроводки': {
+    ru: 'Монтаж и модернизация электропроводки',
+    en: 'Installation and modernization of electrical wiring',
+    es: 'Instalación y modernización del cableado eléctrico'
+  },
+
+  'instalacion y reparacion de sistemas de agua': {
+    ru: 'Монтаж и ремонт систем водоснабжения',
+    en: 'Installation and repair of water systems',
+    es: 'Instalación y reparación de sistemas de agua'
+  },
+  'installation and repair of water systems': {
+    ru: 'Монтаж и ремонт систем водоснабжения',
+    en: 'Installation and repair of water systems',
+    es: 'Instalación y reparación de sistemas de agua'
+  },
+  'монтаж и ремонт систем водоснабжения': {
+    ru: 'Монтаж и ремонт систем водоснабжения',
+    en: 'Installation and repair of water systems',
+    es: 'Instalación y reparación de sistemas de agua'
+  },
+
+  'revestimiento y restauracion de fachadas': {
+    ru: 'Облицовка и реставрация фасадов',
+    en: 'Facade cladding and restoration',
+    es: 'Revestimiento y restauración de fachadas'
+  },
+  'facade cladding and restoration': {
+    ru: 'Облицовка и реставрация фасадов',
+    en: 'Facade cladding and restoration',
+    es: 'Revestimiento y restauración de fachadas'
+  },
+  'облицовка и реставрация фасадов': {
+    ru: 'Облицовка и реставрация фасадов',
+    en: 'Facade cladding and restoration',
+    es: 'Revestimiento y restauración de fachadas'
+  },
+
+  'limpieza profesional despues de la reparacion': {
+    ru: 'Профессиональная уборка после ремонта',
+    en: 'Professional cleaning after renovation',
+    es: 'Limpieza profesional después de la reparación'
+  },
+  'professional cleaning after renovation': {
+    ru: 'Профессиональная уборка после ремонта',
+    en: 'Professional cleaning after renovation',
+    es: 'Limpieza profesional después de la reparación'
+  },
+  'профессиональная уборка после ремонта': {
+    ru: 'Профессиональная уборка после ремонта',
+    en: 'Professional cleaning after renovation',
+    es: 'Limpieza profesional después de la reparación'
+  }
+};
+
+function normalizePhraseForLookup(value) {
+  return String(value || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim();
+}
+
 function requireAdmin(req, res, next) {
   const token = req.headers['x-admin-token'];
   if (!token || token !== adminToken) {
@@ -249,6 +451,19 @@ app.post('/api/admin/translate', requireAdmin, async (req, res) => {
     .filter((lang) => allowedLangs.has(lang) && lang !== sourceLang);
 
   const translations = { [sourceLang]: textValue };
+
+  const phraseKey = normalizePhraseForLookup(textValue);
+  const fixedTranslation = fixedPhraseTranslations[phraseKey];
+
+  if (fixedTranslation) {
+    normalizedTargets.forEach((lang) => {
+      translations[lang] = fixedTranslation[lang] || textValue;
+    });
+    if (!translations.en) translations.en = fixedTranslation.en || textValue;
+    if (!translations.es) translations.es = fixedTranslation.es || textValue;
+    if (!translations.ru) translations.ru = fixedTranslation.ru || textValue;
+    return res.json({ ok: true, translations });
+  }
 
   try {
     for (const targetLang of normalizedTargets) {
