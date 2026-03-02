@@ -93,6 +93,17 @@ function writeJsonFile(filePath, value) {
 }
 
 function normalizeGalleryItems(items) {
+  const normalizeLangMap = (value) => {
+    if (!value || typeof value !== 'object') return null;
+    const map = {};
+    ['ru', 'en', 'es'].forEach((lang) => {
+      if (typeof value[lang] === 'string' && value[lang].trim()) {
+        map[lang] = value[lang].trim();
+      }
+    });
+    return Object.keys(map).length ? map : null;
+  };
+
   if (!Array.isArray(items)) return [];
   return items
     .filter((item) => item && typeof item === 'object')
@@ -108,13 +119,26 @@ function normalizeGalleryItems(items) {
       const normalizedImages = images.length ? images : (image ? [image] : []);
       const coverImage = image || normalizedImages[0] || '';
 
-      return {
+      const normalizedItem = {
         image: coverImage,
         images: normalizedImages.length ? normalizedImages : (coverImage ? [coverImage] : []),
         alt: typeof item.alt === 'string' ? item.alt : '',
         title: typeof item.title === 'string' ? item.title : '',
         description: typeof item.description === 'string' ? item.description : ''
       };
+
+      const titleTranslations = normalizeLangMap(item.titleTranslations);
+      const descriptionTranslations = normalizeLangMap(item.descriptionTranslations);
+
+      if (titleTranslations) {
+        normalizedItem.titleTranslations = titleTranslations;
+      }
+
+      if (descriptionTranslations) {
+        normalizedItem.descriptionTranslations = descriptionTranslations;
+      }
+
+      return normalizedItem;
     })
     .filter((item) => item.image);
 }

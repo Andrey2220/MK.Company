@@ -158,21 +158,31 @@ document.addEventListener('DOMContentLoaded', () => {
         : [];
       const cover = (typeof item.image === 'string' ? item.image.trim() : '') || normalizedImages[0] || '';
       const images = normalizedImages.length ? normalizedImages : (cover ? [cover] : []);
+      const titleTranslations = item && typeof item.titleTranslations === 'object' ? item.titleTranslations : null;
+      const descriptionTranslations = item && typeof item.descriptionTranslations === 'object' ? item.descriptionTranslations : null;
+      const title = titleTranslations
+        ? (titleTranslations[currentLanguage] || titleTranslations.en || item.title || '')
+        : (item.title || '');
+      const description = descriptionTranslations
+        ? (descriptionTranslations[currentLanguage] || descriptionTranslations.en || item.description || '')
+        : (item.description || '');
 
       return {
         image: cover,
         images,
         alt: item.alt || '',
-        title: item.title || '',
-        description: item.description || ''
+        title,
+        description,
+        hasCustomTitleTranslations: !!titleTranslations,
+        hasCustomDescriptionTranslations: !!descriptionTranslations
       };
     }).filter((item) => !!item.image);
 
     galleryGrid.innerHTML = galleryItemsData.map((item, index) => {
       const titleKey = `gallery_card_${index + 1}_title`;
       const descKey = `gallery_card_${index + 1}_desc`;
-      const hasTitleTranslation = hasDictionaryValue(titleKey, item.title || '');
-      const hasDescTranslation = hasDictionaryValue(descKey, item.description || '');
+      const hasTitleTranslation = !item.hasCustomTitleTranslations && hasDictionaryValue(titleKey, item.title || '');
+      const hasDescTranslation = !item.hasCustomDescriptionTranslations && hasDictionaryValue(descKey, item.description || '');
 
       return `
       <div class="gallery-item" data-card-index="${index}">

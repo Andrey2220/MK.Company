@@ -23,6 +23,7 @@ const adminGalleryList = document.getElementById('admin-gallery-list');
 const adminGalleryAddBtn = document.getElementById('admin-gallery-add-btn');
 const adminGallerySaveBtn = document.getElementById('admin-gallery-save-btn');
 const adminGalleryStatus = document.getElementById('admin-gallery-status');
+const galleryAutoTranslate = document.getElementById('gallery-auto-translate');
 
 const visualPageSelect = document.getElementById('visual-page-select');
 const visualLoadBtn = document.getElementById('visual-load-btn');
@@ -332,11 +333,11 @@ function renderGalleryEditor() {
   currentGalleryItems.forEach((item) => createGalleryRow(item));
 }
 
-function collectGalleryItems() {
+async function collectGalleryItems() {
   if (!adminGalleryList) return [];
 
   const rows = Array.from(adminGalleryList.querySelectorAll('.admin-gallery-item'));
-  return rows
+  const items = rows
     .map((row) => {
       const image = row.querySelector('.gallery-image')?.value.trim() || '';
       const extraImages = Array.from(row.querySelectorAll('.gallery-extra-image'))
@@ -353,6 +354,32 @@ function collectGalleryItems() {
       };
     })
     .filter((item) => item.image);
+
+  if (!galleryAutoTranslate || !galleryAutoTranslate.checked) {
+    return items;
+  }
+
+  for (const item of items) {
+    if (item.title && item.title.trim()) {
+      const translatedTitle = await translateAdminText(item.title.trim());
+      item.titleTranslations = {
+        ru: item.title.trim(),
+        en: translatedTitle.en || item.title.trim(),
+        es: translatedTitle.es || item.title.trim()
+      };
+    }
+
+    if (item.description && item.description.trim()) {
+      const translatedDescription = await translateAdminText(item.description.trim());
+      item.descriptionTranslations = {
+        ru: item.description.trim(),
+        en: translatedDescription.en || item.description.trim(),
+        es: translatedDescription.es || item.description.trim()
+      };
+    }
+  }
+
+  return items;
 }
 
 async function adminFetch(url, options = {}) {
@@ -464,7 +491,17 @@ async function uploadImage() {
 async function saveGalleryItems() {
   hideStatus(adminGalleryStatus);
 
-  const galleryItems = collectGalleryItems();
+  let galleryItems = [];
+  try {
+    if (galleryAutoTranslate && galleryAutoTranslate.checked) {
+      setStatus(adminGalleryStatus, 'Сохраняю галерею и перевожу тексты карточек...');
+    }
+    galleryItems = await collectGalleryItems();
+  } catch (error) {
+    setStatus(adminGalleryStatus, `Ошибка автоперевода карточек: ${error.message}`, true);
+    return;
+  }
+
   const res = await adminFetch('/api/admin/gallery', {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
