@@ -79,14 +79,32 @@ function upsertOverride(selector, type, value, translations = null) {
   }
 }
 
+function detectInputLanguage(text) {
+  const value = String(text || '').trim();
+  if (!value) return 'ru';
+
+  if (/[А-Яа-яЁё]/.test(value)) {
+    return 'ru';
+  }
+
+  if (/[¿¡ÑñÁÉÍÓÚÜáéíóúü]/.test(value)) {
+    return 'es';
+  }
+
+  return 'en';
+}
+
 async function translateAdminText(text) {
+  const source = detectInputLanguage(text);
+  const targets = ['ru', 'en', 'es'].filter((lang) => lang !== source);
+
   const res = await adminFetch('/api/admin/translate', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       text,
-      source: 'ru',
-      targets: ['en', 'es']
+      source,
+      targets
     })
   });
 
@@ -393,7 +411,7 @@ async function collectGalleryItems() {
     if (titleChanged && title) {
       const translatedTitle = await translateAdminText(title);
       item.titleTranslations = {
-        ru: title,
+        ru: translatedTitle.ru || title,
         en: translatedTitle.en || title,
         es: translatedTitle.es || title
       };
@@ -402,7 +420,7 @@ async function collectGalleryItems() {
     if (descriptionChanged && description) {
       const translatedDescription = await translateAdminText(description);
       item.descriptionTranslations = {
-        ru: description,
+        ru: translatedDescription.ru || description,
         en: translatedDescription.en || description,
         es: translatedDescription.es || description
       };
