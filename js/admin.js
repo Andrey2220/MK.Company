@@ -146,6 +146,10 @@ function createGalleryRow(item = { image: '', alt: '', title: '', description: '
   const row = document.createElement('div');
   row.className = 'admin-gallery-item';
   row.draggable = true;
+  row.dataset.originalTitle = String(item.title || '');
+  row.dataset.originalDescription = String(item.description || '');
+  row.dataset.originalTitleTranslations = JSON.stringify(item.titleTranslations || {});
+  row.dataset.originalDescriptionTranslations = JSON.stringify(item.descriptionTranslations || {});
   row.innerHTML = `
     <div class="admin-gallery-item-grid">
       <img class="admin-gallery-item-preview admin-gallery-full" src="${String(coverImage).replaceAll('"', '&quot;')}" alt="preview">
@@ -333,6 +337,16 @@ function renderGalleryEditor() {
   currentGalleryItems.forEach((item) => createGalleryRow(item));
 }
 
+function parseJsonObject(value) {
+  if (!value || typeof value !== 'string') return {};
+  try {
+    const parsed = JSON.parse(value);
+    return parsed && typeof parsed === 'object' ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
 async function collectGalleryItems() {
   if (!adminGalleryList) return [];
 
@@ -355,22 +369,42 @@ async function collectGalleryItems() {
     })
     .filter((item) => item.image);
 
-  for (const item of items) {
-    if (item.title && item.title.trim()) {
-      const translatedTitle = await translateAdminText(item.title.trim());
+  for (let i = 0; i < items.length; i++) {
+    const row = rows[i];
+    const item = items[i];
+    const originalTitle = (row?.dataset.originalTitle || '').trim();
+    const originalDescription = (row?.dataset.originalDescription || '').trim();
+    const originalTitleTranslations = parseJsonObject(row?.dataset.originalTitleTranslations || '{}');
+    const originalDescriptionTranslations = parseJsonObject(row?.dataset.originalDescriptionTranslations || '{}');
+
+    const title = (item.title || '').trim();
+    const description = (item.description || '').trim();
+    const titleChanged = title !== originalTitle;
+    const descriptionChanged = description !== originalDescription;
+
+    if (!titleChanged && Object.keys(originalTitleTranslations).length) {
+      item.titleTranslations = originalTitleTranslations;
+    }
+
+    if (!descriptionChanged && Object.keys(originalDescriptionTranslations).length) {
+      item.descriptionTranslations = originalDescriptionTranslations;
+    }
+
+    if (titleChanged && title) {
+      const translatedTitle = await translateAdminText(title);
       item.titleTranslations = {
-        ru: item.title.trim(),
-        en: translatedTitle.en || item.title.trim(),
-        es: translatedTitle.es || item.title.trim()
+        ru: title,
+        en: translatedTitle.en || title,
+        es: translatedTitle.es || title
       };
     }
 
-    if (item.description && item.description.trim()) {
-      const translatedDescription = await translateAdminText(item.description.trim());
+    if (descriptionChanged && description) {
+      const translatedDescription = await translateAdminText(description);
       item.descriptionTranslations = {
-        ru: item.description.trim(),
-        en: translatedDescription.en || item.description.trim(),
-        es: translatedDescription.es || item.description.trim()
+        ru: description,
+        en: translatedDescription.en || description,
+        es: translatedDescription.es || description
       };
     }
   }
@@ -489,7 +523,7 @@ async function saveGalleryItems() {
 
   let galleryItems = [];
   try {
-    setStatus(adminGalleryStatus, 'Сохраняю галерею и перевожу тексты карточек...');
+    setStatus(adminGalleryStatus, 'Сохраняю галерею и перевожу только изменённые тексты...');
     galleryItems = await collectGalleryItems();
   } catch (error) {
     setStatus(adminGalleryStatus, `Ошибка автоперевода карточек: ${error.message}`, true);
