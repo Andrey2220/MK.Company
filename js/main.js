@@ -1,39 +1,53 @@
 // Language switching
 let currentLanguage = localStorage.getItem('language') || 'es';
 
+if (!translations[currentLanguage]) {
+  currentLanguage = 'es';
+}
+
+function getTranslation(key) {
+  const activeDict = translations[currentLanguage] || {};
+  const fallbackDict = translations.en || {};
+  return activeDict[key] || fallbackDict[key] || null;
+}
+
 function loadTranslations() {
   // Update all elements with data-i18n attribute
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    if (translations[currentLanguage][key]) {
+    const value = getTranslation(key);
+    if (value) {
       if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-        el.placeholder = translations[currentLanguage][key];
+        el.placeholder = value;
       } else if (el.tagName === 'OPTION') {
-        el.textContent = translations[currentLanguage][key];
+        el.textContent = value;
       } else {
-        el.innerHTML = translations[currentLanguage][key];
+        el.innerHTML = value;
       }
     }
   });
 
   document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
     const key = el.getAttribute('data-i18n-aria-label');
-    if (translations[currentLanguage][key]) {
-      el.setAttribute('aria-label', translations[currentLanguage][key]);
+    const value = getTranslation(key);
+    if (value) {
+      el.setAttribute('aria-label', value);
     }
   });
 
   document.querySelectorAll('[data-i18n-title]').forEach(el => {
     const key = el.getAttribute('data-i18n-title');
-    if (translations[currentLanguage][key]) {
-      el.setAttribute('title', translations[currentLanguage][key]);
+    const value = getTranslation(key);
+    if (value) {
+      el.setAttribute('title', value);
     }
   });
 
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     const key = el.getAttribute('data-i18n-placeholder');
-    if (translations[currentLanguage][key]) {
-      el.setAttribute('placeholder', translations[currentLanguage][key]);
+    const value = getTranslation(key);
+    if (value) {
+      el.setAttribute('placeholder', value);
     }
   });
   
@@ -44,8 +58,9 @@ function loadTranslations() {
                                       window.location.pathname.includes('team') ? 'team' :
                                       window.location.pathname.includes('gallery') ? 'gallery' :
                                       window.location.pathname.includes('contact') ? 'contact' : 'home');
-    if (translations[currentLanguage][titleKey]) {
-      pageTitle.textContent = translations[currentLanguage][titleKey];
+    const titleValue = getTranslation(titleKey);
+    if (titleValue) {
+      pageTitle.textContent = titleValue;
     }
   }
   
@@ -64,7 +79,8 @@ function setLanguage(lang) {
     // Update trigger button text
     const trigger = document.getElementById('lang-trigger');
     if (trigger) {
-      trigger.textContent = (lang === 'en' ? 'EN' : 'ES') + ' \u25bc';
+      const code = lang === 'ru' ? 'RU' : (lang === 'en' ? 'EN' : 'ES');
+      trigger.textContent = code + ' \u25bc';
     }
     
     // Update active language option
@@ -90,9 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function t(key, fallback = '') {
-    return (translations[currentLanguage] && translations[currentLanguage][key])
-      ? translations[currentLanguage][key]
-      : fallback;
+    return getTranslation(key) || fallback;
   }
 
   function normalizeName(name) {
@@ -225,7 +239,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Set initial language button text
   const langTrigger = document.getElementById('lang-trigger');
   if (langTrigger) {
-    langTrigger.textContent = (currentLanguage === 'en' ? 'EN' : 'ES') + ' \u25bc';
+    const initialCode = currentLanguage === 'ru' ? 'RU' : (currentLanguage === 'en' ? 'EN' : 'ES');
+    langTrigger.textContent = initialCode + ' \u25bc';
   }
   
   // Mark current language as active
