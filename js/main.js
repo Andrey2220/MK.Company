@@ -75,6 +75,7 @@ function setLanguage(lang) {
   if (translations[lang]) {
     currentLanguage = lang;
     loadTranslations();
+    window.dispatchEvent(new CustomEvent('app-language-changed', { detail: { lang } }));
     
     // Update trigger button text
     const trigger = document.getElementById('lang-trigger');
@@ -97,6 +98,8 @@ function setLanguage(lang) {
 document.addEventListener('DOMContentLoaded', () => {
   let commentsEnabled = false;
   let galleryItemsData = [];
+  let galleryItemsSource = [];
+  let overridesSource = [];
 
   function escapeHtml(text) {
     if (!text) return '';
@@ -149,7 +152,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    galleryItemsData = items.map((item) => {
+    galleryItemsSource = Array.isArray(items) ? [...items] : [];
+
+    galleryItemsData = galleryItemsSource.map((item) => {
       const normalizedImages = Array.isArray(item.images)
         ? item.images
             .filter((img) => typeof img === 'string')
@@ -215,7 +220,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (overridesRes.ok) {
         const overridesJson = await overridesRes.json();
         if (overridesJson && overridesJson.ok && Array.isArray(overridesJson.overrides)) {
-          applyOverrides(overridesJson.overrides);
+          overridesSource = [...overridesJson.overrides];
+          applyOverrides(overridesSource);
         }
       }
 
@@ -254,6 +260,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  window.addEventListener('app-language-changed', () => {
+    if (Array.isArray(overridesSource) && overridesSource.length) {
+      applyOverrides(overridesSource);
+    }
+
+    if (Array.isArray(galleryItemsSource) && galleryItemsSource.length) {
+      renderGalleryItems(galleryItemsSource);
+    }
+  });
 
   // Load translations on page load
   loadTranslations();

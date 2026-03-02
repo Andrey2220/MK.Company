@@ -355,10 +355,6 @@ async function collectGalleryItems() {
     })
     .filter((item) => item.image);
 
-  if (!galleryAutoTranslate || !galleryAutoTranslate.checked) {
-    return items;
-  }
-
   for (const item of items) {
     if (item.title && item.title.trim()) {
       const translatedTitle = await translateAdminText(item.title.trim());
@@ -493,9 +489,7 @@ async function saveGalleryItems() {
 
   let galleryItems = [];
   try {
-    if (galleryAutoTranslate && galleryAutoTranslate.checked) {
-      setStatus(adminGalleryStatus, 'Сохраняю галерею и перевожу тексты карточек...');
-    }
+    setStatus(adminGalleryStatus, 'Сохраняю галерею и перевожу тексты карточек...');
     galleryItems = await collectGalleryItems();
   } catch (error) {
     setStatus(adminGalleryStatus, `Ошибка автоперевода карточек: ${error.message}`, true);
