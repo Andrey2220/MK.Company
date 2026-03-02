@@ -551,7 +551,7 @@ translations.ru = {
   gallery_next: 'Вперёд',
   gallery_close: 'Закрыть',
 
-  footer_building: 'строительство',
+  footer_building: 'building',
   footer_tagline: 'Профессиональные строительные и ремонтные услуги с гарантией качества.',
   footer_contact_title: 'Контактная информация',
   footer_contact_name: 'Максим',
