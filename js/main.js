@@ -141,6 +141,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const galleryGrid = document.getElementById('gallery-grid');
     if (!galleryGrid || !Array.isArray(items) || !items.length) return;
 
+    function hasDictionaryValue(key, value) {
+      if (!value) return false;
+      const normalized = String(value).trim();
+      return ['en', 'es', 'ru'].some((lang) => {
+        return translations[lang] && translations[lang][key] === normalized;
+      });
+    }
+
     galleryItemsData = items.map((item) => {
       const normalizedImages = Array.isArray(item.images)
         ? item.images
@@ -163,8 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
     galleryGrid.innerHTML = galleryItemsData.map((item, index) => {
       const titleKey = `gallery_card_${index + 1}_title`;
       const descKey = `gallery_card_${index + 1}_desc`;
-      const hasTitleTranslation = !!(translations.en && translations.en[titleKey]);
-      const hasDescTranslation = !!(translations.en && translations.en[descKey]);
+      const hasTitleTranslation = hasDictionaryValue(titleKey, item.title || '');
+      const hasDescTranslation = hasDictionaryValue(descKey, item.description || '');
 
       return `
       <div class="gallery-item" data-card-index="${index}">
