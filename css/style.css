@@ -175,10 +175,12 @@ p {
 }
 
 .logo {
-  height: 65px;
+  height: clamp(56px, 5vw, 92px);
   width: auto;
   object-fit: contain;
-  transition: transform 0.3s ease;
+  opacity: 1;
+  will-change: transform, opacity;
+  transition: transform 0.35s ease, opacity 0.28s ease;
 }
 
 .brand:hover .logo {
@@ -189,9 +191,54 @@ p {
   display: none;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  width: 42px;
+  height: 42px;
   cursor: pointer;
   color: var(--text);
+  position: relative;
+  z-index: 120;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.burger span,
+.burger::before,
+.burger::after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.25s ease, opacity 0.25s ease, top 0.25s ease;
+}
+
+.burger::before {
+  top: 13px;
+}
+
+.burger span {
+  top: 20px;
+}
+
+.burger::after {
+  top: 27px;
+}
+
+.burger.is-open span {
+  opacity: 0;
+}
+
+.burger.is-open::before {
+  top: 20px;
+  transform: rotate(45deg);
+}
+
+.burger.is-open::after {
+  top: 20px;
+  transform: rotate(-45deg);
 }
 
 .nav {
@@ -1265,19 +1312,27 @@ p {
 }
 
 @media (max-width: 768px) {
+  .logo {
+    height: 64px;
+  }
+
+  .nav-wrap {
+    padding: 0.75rem 1rem;
+  }
+
   .burger {
-    display: block;
+    display: inline-flex;
   }
 
   .nav-menu {
     display: none;
     position: absolute;
-    top: 60px;
+    top: 100%;
     left: 0;
     right: 0;
     background: var(--bg);
     border-bottom: 1px solid var(--border);
-    z-index: 99;
+    z-index: 110;
   }
 
   .nav-menu.active {
@@ -1421,8 +1476,16 @@ p {
 }
 
 @media (max-width: 480px) {
+  .logo {
+    height: 56px;
+  }
+
+  .nav-wrap {
+    padding: 0.6rem 0.75rem;
+  }
+
   .burger {
-    display: block;
+    display: inline-flex;
   }
 
   h1 {

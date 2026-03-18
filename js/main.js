@@ -317,23 +317,75 @@ document.addEventListener('DOMContentLoaded', () => {
   
   const burger = document.getElementById('burger-menu');
   const navMenu = document.getElementById('nav-menu');
+  const brandLink = document.querySelector('.brand');
+  const brandLogo = brandLink ? brandLink.querySelector('.logo') : null;
+
+  if (brandLink && brandLogo) {
+    const defaultLogoSrc = brandLogo.getAttribute('src') || 'img/Logo.png';
+    const orangeLogoSrc = 'img/Logo Orange.png';
+    const logoPreload = new Image();
+    logoPreload.src = orangeLogoSrc;
+
+    const swapLogoWithFade = (targetSrc) => {
+      const currentSrc = brandLogo.getAttribute('src') || '';
+      if (currentSrc === targetSrc) return;
+
+      brandLogo.style.opacity = '0.55';
+
+      window.setTimeout(() => {
+        brandLogo.setAttribute('src', targetSrc);
+
+        if (brandLogo.complete) {
+          brandLogo.style.opacity = '1';
+          return;
+        }
+
+        const revealLogo = () => {
+          brandLogo.style.opacity = '1';
+          brandLogo.removeEventListener('load', revealLogo);
+          brandLogo.removeEventListener('error', revealLogo);
+        };
+
+        brandLogo.addEventListener('load', revealLogo);
+        brandLogo.addEventListener('error', revealLogo);
+      }, 90);
+    };
+
+    const setLogoHoverState = (isHovered) => {
+      swapLogoWithFade(isHovered ? orangeLogoSrc : defaultLogoSrc);
+    };
+
+    brandLink.addEventListener('mouseenter', () => setLogoHoverState(true));
+    brandLink.addEventListener('mouseleave', () => setLogoHoverState(false));
+    brandLink.addEventListener('focusin', () => setLogoHoverState(true));
+    brandLink.addEventListener('focusout', () => setLogoHoverState(false));
+  }
 
   if (burger && navMenu) {
+    const setMenuState = (isOpen) => {
+      navMenu.classList.toggle('active', isOpen);
+      burger.classList.toggle('is-open', isOpen);
+      burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    };
+
+    setMenuState(false);
+
     burger.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
+      const isOpen = navMenu.classList.contains('active');
+      setMenuState(!isOpen);
     });
 
     // Close menu when nav link is clicked
     document.querySelectorAll('.nav a').forEach(link => {
       link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
+        setMenuState(false);
       });
     });
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.site-header')) {
-        navMenu.classList.remove('active');
+        setMenuState(false);
       }
     });
   }
