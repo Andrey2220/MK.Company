@@ -319,6 +319,87 @@ document.addEventListener('DOMContentLoaded', () => {
   const navMenu = document.getElementById('nav-menu');
   const brandLink = document.querySelector('.brand');
   const brandLogo = brandLink ? brandLink.querySelector('.logo') : null;
+  const topNav = document.querySelector('.nav');
+
+  if (topNav) {
+    const navLinks = Array.from(topNav.querySelectorAll('li:not(.nav-lang) > a[href]'));
+
+    if (navLinks.length) {
+      const indicator = document.createElement('span');
+      indicator.className = 'nav-indicator';
+      topNav.appendChild(indicator);
+
+      const normalizePagePath = (value) => {
+        if (!value) return 'index.html';
+
+        try {
+          const parsed = new URL(value, window.location.origin);
+          const path = parsed.pathname || '/';
+          if (path === '/') return 'index.html';
+          const file = path.substring(path.lastIndexOf('/') + 1);
+          return file || 'index.html';
+        } catch (_) {
+          const clean = String(value).split('#')[0].split('?')[0].trim();
+          if (!clean || clean === '/') return 'index.html';
+          const file = clean.substring(clean.lastIndexOf('/') + 1);
+          return file || 'index.html';
+        }
+      };
+
+      const currentPage = normalizePagePath(window.location.pathname);
+      let activeLink = navLinks.find((link) => normalizePagePath(link.getAttribute('href')) === currentPage) || navLinks[0];
+
+      navLinks.forEach((link) => {
+        link.classList.toggle('is-current', link === activeLink);
+      });
+
+      const isMobileNav = () => window.matchMedia('(max-width: 768px)').matches;
+
+      const moveIndicator = (target, animate = true) => {
+        if (!target || isMobileNav()) {
+          indicator.style.opacity = '0';
+          return;
+        }
+
+        const navRect = topNav.getBoundingClientRect();
+        const linkRect = target.getBoundingClientRect();
+        const nextX = linkRect.left - navRect.left;
+
+        if (!animate) {
+          const prevTransition = indicator.style.transition;
+          indicator.style.transition = 'none';
+          indicator.style.width = `${linkRect.width}px`;
+          indicator.style.transform = `translateX(${nextX}px)`;
+          indicator.style.opacity = '1';
+          indicator.getBoundingClientRect();
+          indicator.style.transition = prevTransition;
+          return;
+        }
+
+        indicator.style.width = `${linkRect.width}px`;
+        indicator.style.transform = `translateX(${nextX}px)`;
+        indicator.style.opacity = '1';
+      };
+
+      moveIndicator(activeLink, false);
+
+      navLinks.forEach((link) => {
+        link.addEventListener('mouseenter', () => moveIndicator(link));
+        link.addEventListener('focus', () => moveIndicator(link));
+        link.addEventListener('click', () => {
+          activeLink = link;
+          navLinks.forEach((item) => item.classList.toggle('is-current', item === activeLink));
+          moveIndicator(activeLink);
+        });
+      });
+
+      topNav.addEventListener('mouseleave', () => moveIndicator(activeLink));
+
+      window.addEventListener('resize', () => {
+        moveIndicator(activeLink, false);
+      });
+    }
+  }
 
   if (brandLink && brandLogo) {
     const defaultLogoSrc = brandLogo.getAttribute('src') || 'img/Logo.png';
