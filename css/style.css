@@ -162,13 +162,16 @@ p {
   position: sticky;
   top: 0;
   z-index: 100;
+    overflow: visible;
 }
 
 .nav-wrap {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+    height: 68px;
+    padding: 0 1rem;
+    overflow: visible;
 }
 
 .brand {
@@ -180,6 +183,8 @@ p {
   letter-spacing: 1px;
   display: flex;
   align-items: center;
+  height: 100%;
+  overflow: visible;
 }
 
 .brand:hover {
@@ -187,15 +192,18 @@ p {
 }
 
 .logo {
-  height: clamp(56px, 5vw, 92px);
+  height: clamp(72px, 5.8vw, 90px);
   width: auto;
   object-fit: contain;
   opacity: 1;
-  will-change: transform, opacity;
-  transition: transform 0.35s ease, opacity 0.28s ease;
+  filter: none;
+  will-change: transform, opacity, filter;
+  transition: transform 0.35s ease, opacity 0.28s ease, filter 0.3s ease;
 }
 
-.brand:hover .logo {
+.brand:hover .logo,
+.brand:focus-visible .logo {
+  filter: brightness(0) saturate(100%) invert(49%) sepia(90%) saturate(3415%) hue-rotate(347deg) brightness(101%) contrast(101%);
   transform: scale(1.05);
 }
 
@@ -255,7 +263,7 @@ p {
 
 .nav {
   display: flex;
-  gap: 2rem;
+  gap: 2.35rem;
   list-style: none;
   position: relative;
   align-items: center;
@@ -270,7 +278,8 @@ p {
   position: relative;
   text-decoration: none;
   color: var(--text);
-  font-weight: 500;
+  font-size: clamp(1.08rem, 1.2vw, 1.28rem);
+  font-weight: 600;
   transition: color 0.3s ease;
 }
 
@@ -301,6 +310,7 @@ p {
 .hero {
   background-image: url('../img/HomePhoto.jpeg');
   background-size: cover;
+  font-weight: 700;
   background-position: center;
   background-attachment: scroll;
   padding: 4rem 0;
@@ -339,6 +349,7 @@ p {
 
 .hero .lead {
   font-size: 1.2rem;
+  font-weight: 700;
   margin-bottom: 2rem;
   color: #f0f0f0;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
@@ -360,6 +371,7 @@ p {
 .about p {
   font-size: 1.12rem;
   line-height: 1.7;
+  font-weight: 600;
   max-width: 760px;
   margin: 0 auto 0.95rem;
   text-align: justify;
@@ -603,14 +615,14 @@ main.container > p.lead[data-i18n="services_subtitle"] {
 }
 
 .service-image {
-  flex: 0 0 300px;
+  flex: 0 0 clamp(320px, 34vw, 390px);
   overflow: hidden;
   border-radius: 8px;
 }
 
 .service-image img {
   width: 100%;
-  height: 250px;
+  height: clamp(230px, 26vw, 300px);
   object-fit: cover;
   display: block;
 }
@@ -623,7 +635,7 @@ main.container > p.lead[data-i18n="services_subtitle"] {
   color: #555;
   font-size: 1.08rem;
   line-height: 1.7;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .service-checklist {
@@ -631,6 +643,7 @@ main.container > p.lead[data-i18n="services_subtitle"] {
   list-style: none;
   margin: 1rem 0 0 0;
   padding: 0;
+  max-width: clamp(320px, 34vw, 390px);
 }
 
 .service-checklist li {
@@ -640,6 +653,7 @@ main.container > p.lead[data-i18n="services_subtitle"] {
   margin: 0.5rem 0;
   color: #666;
   font-size: 0.95rem;
+  font-weight: 600;
 }
 
 .service-checklist li::before {
@@ -663,6 +677,7 @@ main.container > p.lead[data-i18n="services_subtitle"] {
 .how-we-work .lead {
   font-size: 1.12rem;
   line-height: 1.7;
+  font-weight: 700;
   max-width: 760px;
   margin: 0 auto 0.95rem;
   text-align: justify;
@@ -701,7 +716,9 @@ main.container > p.lead[data-i18n="services_subtitle"] {
 
 .process-step p {
   color: #666;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.6;
 }
 
 /* ========== CERTIFICATION ========== */
@@ -1434,11 +1451,12 @@ main.container > p.lead[data-i18n="services_subtitle"] {
 
 @media (max-width: 768px) {
   .logo {
-    height: 64px;
+    height: 62px;
   }
 
   .nav-wrap {
-    padding: 0.75rem 1rem;
+    height: 60px;
+    padding: 0 1rem;
   }
 
   .burger {
@@ -1485,6 +1503,7 @@ main.container > p.lead[data-i18n="services_subtitle"] {
   .nav a {
     display: block;
     padding: 1rem;
+    font-size: 1.04rem;
   }
 
   .visual-editor-grid {
@@ -1575,6 +1594,10 @@ main.container > p.lead[data-i18n="services_subtitle"] {
     width: 100%;
     height: 200px;
   }
+
+  .service-checklist {
+    max-width: 100%;
+  }
   
   .card {
     padding: 1.5rem;
@@ -1606,11 +1629,12 @@ main.container > p.lead[data-i18n="services_subtitle"] {
 
 @media (max-width: 480px) {
   .logo {
-    height: 56px;
+    height: 54px;
   }
 
   .nav-wrap {
-    padding: 0.6rem 0.75rem;
+    height: 56px;
+    padding: 0 0.75rem;
   }
 
   .burger {
