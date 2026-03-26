@@ -709,6 +709,10 @@ main.container > p.lead[data-i18n="contact_subtitle"] {
   margin: 2rem 0;
 }
 
+.process-grid .process-step:nth-child(4) {
+  grid-column: 2;
+}
+
 .process-step {
   padding: 2rem;
   background: var(--light-gray);
@@ -1466,6 +1470,10 @@ main.container > p.lead[data-i18n="contact_subtitle"] {
   .process-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .process-grid .process-step:nth-child(4) {
+    grid-column: auto;
+  }
   
   h1 {
     font-size: 2.5rem;
@@ -1576,6 +1584,10 @@ main.container > p.lead[data-i18n="contact_subtitle"] {
 
   .process-grid {
     grid-template-columns: 1fr;
+  }
+
+  .process-grid .process-step:nth-child(4) {
+    grid-column: auto;
   }
 
   .testimonials-grid {
