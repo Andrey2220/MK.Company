@@ -416,12 +416,24 @@ main.container > h1[data-i18n="services_title"] {
   text-align: center;
 }
 
+main.container > h1[data-i18n="contact_title"] {
+  text-align: center;
+}
+
 main.container > p.lead[data-i18n="services_subtitle"] {
   font-size: 1.12rem;
   line-height: 1.7;
   max-width: 760px;
   margin: 0 auto 0.95rem;
   text-align: justify;
+}
+
+main.container > p.lead[data-i18n="contact_subtitle"] {
+  font-size: 1.12rem;
+  line-height: 1.7;
+  max-width: 760px;
+  margin: 0 auto 0.95rem;
+  text-align: center;
 }
 
 .services-full {
