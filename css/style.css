@@ -1034,6 +1034,10 @@ main.container > p.lead[data-i18n="services_subtitle"] {
   padding: 2rem 0;
 }
 
+.gallery-section h1 {
+  text-align: center;
+}
+
 .gallery-lightbox {
   position: fixed;
   inset: 0;
