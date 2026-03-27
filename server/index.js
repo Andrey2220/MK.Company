@@ -8,9 +8,19 @@ const multer = require('multer');
 
 dotenv.config({ path: path.join(__dirname, '.env') });
 
+const dataDir = process.env.DATA_DIR && process.env.DATA_DIR.trim()
+  ? process.env.DATA_DIR.trim()
+  : path.join(__dirname, 'data');
+
+const legacyReviewsFile = path.join(__dirname, 'reviews.json');
+const legacySiteConfigFile = path.join(__dirname, 'site-config.json');
+
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+const uploadsDir = path.join(dataDir, 'uploads');
+app.use('/img/uploads', express.static(uploadsDir));
 app.use(express.static(path.join(__dirname, '..')));
 
 function setNoCacheHeaders(req, res, next) {
@@ -24,9 +34,8 @@ app.use('/api/public', setNoCacheHeaders);
 app.use('/api/admin', setNoCacheHeaders);
 app.use('/api/reviews', setNoCacheHeaders);
 
-const reviewsFile = path.join(__dirname, 'reviews.json');
-const siteConfigFile = path.join(__dirname, 'site-config.json');
-const uploadsDir = path.join(__dirname, '..', 'img', 'uploads');
+const reviewsFile = path.join(dataDir, 'reviews.json');
+const siteConfigFile = path.join(dataDir, 'site-config.json');
 const defaultGalleryItems = [
   {
     image: 'img/ремонты.jpeg',
@@ -66,14 +75,30 @@ const defaultGalleryItems = [
   }
 ];
 
-// Initialize reviews file if it doesn't exist
-if (!fs.existsSync(reviewsFile)) {
-  fs.writeFileSync(reviewsFile, JSON.stringify([]));
+function ensureJsonFile(targetPath, fallbackValue, legacyPath = null) {
+  if (fs.existsSync(targetPath)) return;
+
+  let seedValue = fallbackValue;
+
+  if (legacyPath && fs.existsSync(legacyPath)) {
+    try {
+      const legacyRaw = fs.readFileSync(legacyPath, 'utf8');
+      seedValue = JSON.parse(legacyRaw.replace(/^\uFEFF/, ''));
+    } catch {
+      seedValue = fallbackValue;
+    }
+  }
+
+  fs.writeFileSync(targetPath, JSON.stringify(seedValue, null, 2));
 }
 
-if (!fs.existsSync(siteConfigFile)) {
-  fs.writeFileSync(siteConfigFile, JSON.stringify({ commentsEnabled: false, overrides: [], galleryItems: defaultGalleryItems }, null, 2));
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir, { recursive: true });
 }
+
+// Initialize persistent JSON files if they don't exist yet
+ensureJsonFile(reviewsFile, [], legacyReviewsFile);
+ensureJsonFile(siteConfigFile, { commentsEnabled: false, overrides: [], galleryItems: defaultGalleryItems }, legacySiteConfigFile);
 
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });

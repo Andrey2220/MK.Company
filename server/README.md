@@ -21,3 +21,11 @@ Front-end
 
 Security notes
 - Keep SMTP credentials secret. Do not commit `.env` to git.
+
+Render persistence (important)
+- Render Web Service has an ephemeral filesystem by default. Uploaded images and admin edits can disappear after redeploy/restart.
+- Add a Persistent Disk in Render and set env var `DATA_DIR` to the mounted path (for example `/var/data/mk-company`).
+- The server stores these files inside `DATA_DIR`:
+	- `reviews.json`
+	- `site-config.json`
+	- uploaded images in `uploads/` (served as `/img/uploads/...`).
