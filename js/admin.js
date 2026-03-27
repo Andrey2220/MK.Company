@@ -55,6 +55,16 @@ let currentReviews = [];
 let autosaveTimer = null;
 let draggedGalleryItem = null;
 
+function getBackgroundImageUrl(element) {
+  if (!element) return '';
+
+  const inlineValue = element.style && element.style.backgroundImage ? element.style.backgroundImage : '';
+  const computedValue = window.getComputedStyle(element).backgroundImage || '';
+  const source = inlineValue && inlineValue !== 'none' ? inlineValue : computedValue;
+  const match = source.match(/url\(["']?(.*?)["']?\)/i);
+  return match ? match[1] : '';
+}
+
 function getToken() {
   return localStorage.getItem(tokenKey) || '';
 }
@@ -794,12 +804,20 @@ function setVisualSelected(node) {
   visualSelectedNode = node;
   visualSelectedNode.classList.add('admin-visual-selected');
 
-  const selector = buildUniqueSelector(node);
+  const selector = visualSelectedNode.classList && visualSelectedNode.classList.contains('hero')
+    ? '.hero'
+    : buildUniqueSelector(node);
   visualSelectedSelector.value = selector;
 
   if (node.tagName.toLowerCase() === 'img') {
     visualSelectedType.value = 'src';
     visualSelectedValue.value = node.getAttribute('src') || '';
+    return;
+  }
+
+  if (visualSelectedNode.classList && visualSelectedNode.classList.contains('hero')) {
+    visualSelectedType.value = 'src';
+    visualSelectedValue.value = getBackgroundImageUrl(visualSelectedNode);
     return;
   }
 
@@ -845,7 +863,7 @@ function setupVisualFrame() {
     event.preventDefault();
     event.stopPropagation();
 
-    const target = event.target.closest('h1, h2, h3, h4, h5, h6, p, span, li, a, button, label, strong, small, em, img');
+    const target = event.target.closest('.hero, h1, h2, h3, h4, h5, h6, p, span, li, a, button, label, strong, small, em, img');
     if (!target) return;
 
     setVisualSelected(target);
@@ -877,7 +895,11 @@ async function saveSelectedVisualElement() {
   let translations = null;
 
   if (type === 'src') {
-    visualSelectedNode.setAttribute('src', value);
+    if (visualSelectedNode.tagName.toLowerCase() === 'img') {
+      visualSelectedNode.setAttribute('src', value);
+    } else {
+      visualSelectedNode.style.backgroundImage = value ? `url("${value}")` : 'none';
+    }
   } else if (type === 'html') {
     visualSelectedNode.innerHTML = value;
   } else {
@@ -979,7 +1001,11 @@ if (visualSelectedType) {
     if (!visualSelectedNode) return;
 
     if (visualSelectedType.value === 'src') {
-      visualSelectedValue.value = visualSelectedNode.getAttribute('src') || '';
+      if (visualSelectedNode.tagName.toLowerCase() === 'img') {
+        visualSelectedValue.value = visualSelectedNode.getAttribute('src') || '';
+      } else {
+        visualSelectedValue.value = getBackgroundImageUrl(visualSelectedNode);
+      }
     } else if (visualSelectedType.value === 'html') {
       visualSelectedValue.value = visualSelectedNode.innerHTML || '';
     } else {

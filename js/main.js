@@ -246,8 +246,12 @@ document.addEventListener('DOMContentLoaded', () => {
             element.textContent = localizedValue;
           } else if (override.type === 'html') {
             element.innerHTML = localizedValue;
-          } else if (override.type === 'src' && 'src' in element) {
-            element.src = override.value || '';
+          } else if (override.type === 'src') {
+            if ('src' in element) {
+              element.src = override.value || '';
+            } else {
+              element.style.backgroundImage = override.value ? `url("${override.value}")` : 'none';
+            }
           }
         });
       } catch (error) {
