@@ -805,7 +805,7 @@ function setVisualSelected(node) {
   visualSelectedNode.classList.add('admin-visual-selected');
 
   const selector = visualSelectedNode.classList && visualSelectedNode.classList.contains('hero')
-    ? '.hero'
+    ? '#hero-bg'
     : buildUniqueSelector(node);
   visualSelectedSelector.value = selector;
 
@@ -863,7 +863,7 @@ function setupVisualFrame() {
     event.preventDefault();
     event.stopPropagation();
 
-    const target = event.target.closest('.hero, h1, h2, h3, h4, h5, h6, p, span, li, a, button, label, strong, small, em, img');
+    const target = event.target.closest('#hero-bg, .hero, h1, h2, h3, h4, h5, h6, p, span, li, a, button, label, strong, small, em, img');
     if (!target) return;
 
     setVisualSelected(target);
