@@ -2,67 +2,67 @@
   "commentsEnabled": false,
   "overrides": [
     {
-      "selector": "body > main > section:nth-of-type(3) > section > div:nth-of-type(3) > div:nth-of-type(1) > img",
+      "key": "service-electric-image",
       "type": "src",
       "value": "/img/uploads/1771938151198-eiyu8s.jpg"
     },
     {
-      "selector": "body > main > section > div:nth-of-type(2) > div:nth-of-type(1) > img",
+      "key": "services-build-image",
       "type": "src",
       "value": "/img/uploads/1771946189230-a5wemf.jpg"
     },
     {
-      "selector": "body > main > section:nth-of-type(3) > section > div:nth-of-type(1) > div:nth-of-type(1) > img",
+      "key": "service-repair-image",
       "type": "src",
       "value": "/img/uploads/1771937926353-wkqdd9.jpg"
     },
     {
-      "selector": "body > main > section:nth-of-type(3) > section > div:nth-of-type(2) > div:nth-of-type(1) > img",
+      "key": "service-build-image",
       "type": "src",
       "value": "/img/uploads/1771938038176-jc84d9.jpg"
     },
     {
-      "selector": "body > main > section > div:nth-of-type(1) > div:nth-of-type(1) > img",
+      "key": "services-repair-image",
       "type": "src",
       "value": "/img/uploads/1771938403943-t3e8tz.jpg"
     },
     {
-      "selector": "body > main > section > div:nth-of-type(3) > div:nth-of-type(1) > img",
+      "key": "services-electric-image",
       "type": "src",
       "value": "/img/uploads/1771938462454-s22ka2.jpg"
     },
     {
-      "selector": "body > main > section > div:nth-of-type(4) > div:nth-of-type(1) > img",
+      "key": "services-plumber-image",
       "type": "src",
       "value": "/img/uploads/1771938529797-vg8590.jpg"
     },
     {
-      "selector": "body > main > section > div:nth-of-type(5) > div:nth-of-type(1) > img",
+      "key": "services-facade-image",
       "type": "src",
       "value": "/img/uploads/1771938558768-7j5jzm.jpg"
     },
     {
-      "selector": "body > main > section > div:nth-of-type(6) > div:nth-of-type(1) > img",
+      "key": "services-cleaning-image",
       "type": "src",
       "value": "/img/uploads/1771938609280-6mwqz3.jpg"
     },
     {
-      "selector": "body > main > section > div:nth-of-type(2) > div:nth-of-type(2) > img",
+      "key": "gallery-card-2-image",
       "type": "src",
       "value": "/img/uploads/1771939577040-b24p8f.jpg"
     },
     {
-      "selector": "body > main > section > div:nth-of-type(2) > div:nth-of-type(3) > img",
+      "key": "gallery-card-3-image",
       "type": "src",
       "value": "/img/uploads/1771939692774-ey6bam.jpg"
     },
     {
-      "selector": "body > main > section > div:nth-of-type(2) > div:nth-of-type(4) > img",
+      "key": "gallery-card-4-image",
       "type": "src",
       "value": "/img/uploads/1771939736868-4blyi6.jpg"
     },
     {
-      "selector": "body > main > section > div:nth-of-type(2) > div:nth-of-type(6) > img",
+      "key": "gallery-card-6-image",
       "type": "src",
       "value": "/img/uploads/1771939783118-gsjla5.jpg"
     }

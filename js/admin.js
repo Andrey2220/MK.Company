@@ -83,11 +83,21 @@ function hideStatus(element) {
   element.classList.remove('error');
 }
 
-function upsertOverride(selector, type, value, translations = null) {
-  if (!selector) return;
+function upsertOverride(target, type, value, translations = null) {
+  const key = target && typeof target.key === 'string' ? target.key.trim() : '';
+  const selector = target && typeof target.selector === 'string' ? target.selector.trim() : '';
+  if (!key && !selector) return;
 
-  const existingIndex = currentOverrides.findIndex((item) => item.selector === selector);
-  const payload = { selector, type, value };
+  const existingIndex = currentOverrides.findIndex((item) => {
+    if (key && item && typeof item.key === 'string') {
+      return item.key === key;
+    }
+    return item && item.selector === selector;
+  });
+
+  const payload = { type, value };
+  if (key) payload.key = key;
+  if (selector) payload.selector = selector;
 
   if (translations && typeof translations === 'object') {
     payload.translations = translations;
@@ -632,7 +642,7 @@ async function applyLogo() {
     return;
   }
 
-  upsertOverride('.brand img.logo', 'src', logoPath);
+  upsertOverride({ selector: '.brand img.logo' }, 'src', logoPath);
   const saved = await saveOverrides(logoStatus);
   if (saved) {
     setStatus(logoStatus, 'Логотип применён ко всем страницам');
@@ -690,7 +700,10 @@ async function saveConfig() {
 async function saveOverrides(statusElement = visualStatus) {
   hideStatus(statusElement);
 
-  const overrides = currentOverrides.filter((item) => item && item.selector);
+  const overrides = currentOverrides.filter((item) => {
+    if (!item || typeof item.type !== 'string') return false;
+    return (typeof item.key === 'string' && item.key.trim()) || (typeof item.selector === 'string' && item.selector.trim());
+  });
   const res = await adminFetch('/api/admin/overrides', {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
@@ -790,6 +803,13 @@ function buildUniqueSelector(element) {
   return parts.join(' > ');
 }
 
+function getNodeAdminKey(node) {
+  if (!node || !node.closest) return '';
+  const keyed = node.closest('[data-admin-key]');
+  if (!keyed) return '';
+  return keyed.getAttribute('data-admin-key') || '';
+}
+
 function setVisualSelected(node) {
   if (!visualFrameDoc) return;
 
@@ -801,13 +821,15 @@ function setVisualSelected(node) {
     visualSelectedNode.removeAttribute('contenteditable');
   }
 
-  visualSelectedNode = node;
+  const keyTarget = node.closest ? node.closest('[data-admin-key]') : null;
+  visualSelectedNode = keyTarget || node;
   visualSelectedNode.classList.add('admin-visual-selected');
 
+  const key = getNodeAdminKey(visualSelectedNode);
   const selector = visualSelectedNode.classList && visualSelectedNode.classList.contains('hero')
     ? '#hero-bg'
-    : buildUniqueSelector(node);
-  visualSelectedSelector.value = selector;
+    : buildUniqueSelector(visualSelectedNode);
+  visualSelectedSelector.value = key ? `[data-admin-key="${key}"]` : selector;
 
   if (node.tagName.toLowerCase() === 'img') {
     visualSelectedType.value = 'src';
@@ -863,7 +885,8 @@ function setupVisualFrame() {
     event.preventDefault();
     event.stopPropagation();
 
-    const target = event.target.closest('#hero-bg, .hero, h1, h2, h3, h4, h5, h6, p, span, li, a, button, label, strong, small, em, img');
+    const keyTarget = event.target.closest('[data-admin-key]');
+    const target = keyTarget || event.target.closest('#hero-bg, .hero, h1, h2, h3, h4, h5, h6, p, span, li, a, button, label, strong, small, em, img');
     if (!target) return;
 
     setVisualSelected(target);
@@ -889,7 +912,10 @@ async function saveSelectedVisualElement() {
     return;
   }
 
-  const selector = visualSelectedSelector.value.trim();
+  const key = getNodeAdminKey(visualSelectedNode);
+  const selector = visualSelectedSelector.value.trim().startsWith('[data-admin-key=')
+    ? ''
+    : visualSelectedSelector.value.trim();
   const type = visualSelectedType.value;
   let value = visualSelectedValue.value;
   let translations = null;
@@ -919,7 +945,7 @@ async function saveSelectedVisualElement() {
     }
   }
 
-  upsertOverride(selector, type, value, translations);
+  upsertOverride({ key, selector }, type, value, translations);
   const saved = await saveOverrides(visualStatus);
   if (saved) {
     if (translations) {

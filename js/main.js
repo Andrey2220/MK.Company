@@ -184,12 +184,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }).filter((item) => !!item.image);
 
     galleryGrid.innerHTML = galleryItemsData.map((item, index) => {
+      const keyPrefix = `gallery-card-${index + 1}`;
       return `
-      <div class="gallery-item" data-card-index="${index}">
-        <img src="${escapeHtml(item.image || '')}" alt="${escapeHtml(item.alt || '')}" class="gallery-image">
+      <div class="gallery-item" data-card-index="${index}" data-admin-key="${keyPrefix}">
+        <img data-admin-key="${keyPrefix}-image" src="${escapeHtml(item.image || '')}" alt="${escapeHtml(item.alt || '')}" class="gallery-image">
         <div class="gallery-info">
-          <h3>${escapeHtml(item.title || '')}</h3>
-          <p>${escapeHtml(item.description || '')}</p>
+          <h3 data-admin-key="${keyPrefix}-title">${escapeHtml(item.title || '')}</h3>
+          <p data-admin-key="${keyPrefix}-desc">${escapeHtml(item.description || '')}</p>
         </div>
       </div>
     `;
@@ -233,14 +234,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function applyOverrides(overrides) {
     overrides.forEach((override) => {
-      if (!override || !override.selector || !override.type) return;
+      if (!override || !override.type) return;
 
       const localizedValue = (override.translations && typeof override.translations === 'object')
         ? (override.translations[currentLanguage] || override.translations.en || override.value || '')
         : (override.value || '');
 
       try {
-        const elements = document.querySelectorAll(override.selector);
+        let elements = [];
+
+        if (typeof override.key === 'string' && override.key.trim()) {
+          const keyValue = override.key.trim();
+          const escapedKey = window.CSS && typeof window.CSS.escape === 'function'
+            ? window.CSS.escape(keyValue)
+            : keyValue.replace(/"/g, '\\"');
+          elements = Array.from(document.querySelectorAll(`[data-admin-key="${escapedKey}"]`));
+        }
+
+        if (!elements.length && typeof override.selector === 'string' && override.selector.trim()) {
+          elements = Array.from(document.querySelectorAll(override.selector));
+        }
+
         elements.forEach((element) => {
           if (override.type === 'text') {
             element.textContent = localizedValue;
@@ -255,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
       } catch (error) {
-        console.warn('Invalid override selector:', override.selector);
+        console.warn('Invalid override target:', override.key || override.selector || 'unknown');
       }
     });
   }

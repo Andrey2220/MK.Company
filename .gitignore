@@ -1,2 +1,5 @@
 .env
 server/.env
+server/site-config.json
+server/reviews.json
+server/data/uploads/

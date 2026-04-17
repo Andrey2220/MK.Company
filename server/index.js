@@ -587,13 +587,25 @@ app.put('/api/admin/overrides', requireAdmin, (req, res) => {
   const current = getSiteConfig();
   const overrides = Array.isArray(req.body && req.body.overrides)
     ? req.body.overrides
-        .filter((item) => item && typeof item.selector === 'string' && typeof item.type === 'string')
+        .filter((item) => {
+          if (!item || typeof item.type !== 'string') return false;
+          const hasKey = typeof item.key === 'string' && item.key.trim();
+          const hasSelector = typeof item.selector === 'string' && item.selector.trim();
+          return hasKey || hasSelector;
+        })
         .map((item) => {
           const safeItem = {
-            selector: item.selector.trim(),
             type: item.type,
             value: typeof item.value === 'string' ? item.value : ''
           };
+
+          if (typeof item.key === 'string' && item.key.trim()) {
+            safeItem.key = item.key.trim();
+          }
+
+          if (typeof item.selector === 'string' && item.selector.trim()) {
+            safeItem.selector = item.selector.trim();
+          }
 
           if (item.translations && typeof item.translations === 'object') {
             const translationMap = {};
@@ -610,7 +622,7 @@ app.put('/api/admin/overrides', requireAdmin, (req, res) => {
 
           return safeItem;
         })
-        .filter((item) => item.selector)
+        .filter((item) => item.key || item.selector)
     : [];
 
   const next = {
